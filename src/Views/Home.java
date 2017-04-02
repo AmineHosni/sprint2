@@ -28,7 +28,7 @@ public class Home extends Application {
         primaryStage.setScene(scene);
 
         primaryStage.show();
-//uhbkhbj
+
     }
 
     public static void main(String[] args) {
