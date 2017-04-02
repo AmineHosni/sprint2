@@ -1,2 +1,5 @@
-build.xml                                                                                                               build/*                                                                                                                  dist/*                                                                                                                   manifest.mf                                                                                                             
+build.xml
+build/*
+dist/*
+manifest.mf
 nbproject/*
