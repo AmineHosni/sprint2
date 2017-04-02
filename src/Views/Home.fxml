@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1016.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.HomeController">
+   <children>
+      <Pane layoutX="14.0" layoutY="16.0" prefHeight="416.0" prefWidth="199.0" />
+      <TableView fx:id="table" layoutX="18.0" layoutY="22.0" prefHeight="403.0" prefWidth="637.0">
+        <columns>
+          <TableColumn fx:id="Name" prefWidth="113.0" text="name" />
+          <TableColumn fx:id="Marque" prefWidth="82.0" text="Marque" />
+            <TableColumn fx:id="Prix" prefWidth="77.0" text="Prix" />
+            <TableColumn fx:id="Etat" text="Etat" />
+            <TableColumn fx:id="Stock" prefWidth="81.0" text="Stock" />
+            <TableColumn fx:id="Description" prefWidth="75.0" text="Description" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAjouter" layoutX="842.0" layoutY="400.0" mnemonicParsing="false" text="ajouter" />
+      <TextArea fx:id="txtdescription" layoutX="677.0" layoutY="93.0" prefHeight="67.0" prefWidth="149.0" promptText="Description" />
+      <TextField fx:id="txtStock" layoutX="677.0" layoutY="266.0" promptText="Stock" />
+      <TextField fx:id="txtprixProduit" layoutX="677.0" layoutY="224.0" promptText="Prix" />
+      <TextField fx:id="txtmarque" layoutX="677.0" layoutY="179.0" promptText="marque" />
+      <TextField fx:id="txtlibelle" layoutX="677.0" layoutY="56.0" promptText="libelle" />
+      <Button fx:id="btnPhoto" layoutX="872.0" layoutY="266.0" mnemonicParsing="false" text="Photo" />
+      <Button fx:id="btnModifier" layoutX="768.0" layoutY="400.0" mnemonicParsing="false" text="Modifier" />
+      <Button fx:id="btnSupprimer" layoutX="677.0" layoutY="400.0" mnemonicParsing="false" text="Supprimer" />
+      <ImageView fx:id="imgView" fitHeight="120.0" fitWidth="150.0" layoutX="842.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
