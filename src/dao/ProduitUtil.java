@@ -151,6 +151,8 @@ public class ProduitUtil extends UtilInterface {
         try {
             String req3 = "select * from produit where "+i;
             ResultSet res = stmt.executeQuery(req3);
+                        System.out.println(res);
+
             while (res.next()) {
                 image= res.getBinaryStream("Photo");
                 
@@ -158,6 +160,7 @@ public class ProduitUtil extends UtilInterface {
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return image;
     }
     

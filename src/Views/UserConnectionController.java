@@ -28,11 +28,13 @@ public class UserConnectionController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    Button btnconnecter, btnexit;
+    Button btnconnecter, btnExit;
     @FXML
     TextField txtUsername, txtPassword;
     @FXML
     Label lblWarning;
+    private UserConnectionController userConnectionController;
+            Stage stage = new Stage();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,7 +43,6 @@ public class UserConnectionController implements Initializable {
         btnconnecter.setOnMousePressed(e -> {
 
             Home home = new Home();
-            Stage stage = new Stage();
             UtilisateurUtil utilisateurUtil = new UtilisateurUtil();
             Boolean connect = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
             UserConnection uc = new UserConnection();
@@ -58,6 +59,14 @@ public class UserConnectionController implements Initializable {
             }
 
         });
+        
+        btnExit.setOnMousePressed(e->{
+           Stage s = (Stage) btnExit.getScene().getWindow();
+                    s.close();
+        });
+    }
+    public Stage setStage(){
+        return stage;
     }
 
 }

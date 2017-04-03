@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Views;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -23,27 +24,26 @@ public class UserConnection extends Application {
     
 
    @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage)  {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserConnection.fxml"));
-        Parent root = (Parent)loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("UserConncection");
-        primaryStage.setScene(scene);
-        primaryStage.show();     
-         
-    }
-    public void close() {
        try {
-          
-       } catch (Exception ex) {
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("UserConnection.fxml"));
+           Parent root = (Parent)loader.load();
+           Scene scene = new Scene(root);
+           primaryStage.setTitle("UserConncection");
+           primaryStage.setScene(scene);     
+           primaryStage.show();
+       } catch (IOException ex) {
            Logger.getLogger(UserConnection.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
+ 
+    
     public static void main(String[] args) {
         
         launch(args);
         
     }
+    
 
 }

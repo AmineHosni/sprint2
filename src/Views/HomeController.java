@@ -74,7 +74,11 @@ public class HomeController implements Initializable {
      */
     
     
-    
+    public void imageDisplay(){
+        InputStream binaryStream = PU.returnImage(table.getSelectionModel().getSelectedItem().getId());
+        Image image = new Image(binaryStream);
+        imgView.setImage(image);
+    }
     
     public void Mousepress() {
 
@@ -88,17 +92,18 @@ public class HomeController implements Initializable {
                 
                 if(table.getSelectionModel().getSelectedItem() == null)
                     return;
-                
-                
+              
+                 imageDisplay();
+                 
                 txtprixProduit.setText(table.getSelectionModel().getSelectedItem().getPrixProduit().toString());
                 txtlibelle.setText(table.getSelectionModel().getSelectedItem().getLibelle());
                 txtmarque.setText(table.getSelectionModel().getSelectedItem().getMarque());
                 txtStock.setText(table.getSelectionModel().getSelectedItem().getQuantiteStock().toString());
                 txtdescription.setText(table.getSelectionModel().getSelectedItem().getDescription());
                 
-            InputStream binaryStream = PU.returnImage(table.getSelectionModel().getSelectedItem().getId());
-            Image image = new Image(binaryStream);
-            imgView.setImage(image);
+                
+               
+            
   }
 
         });
@@ -138,8 +143,12 @@ public class HomeController implements Initializable {
         
         btnModifier.setOnMouseClicked(e -> {
 
-            Integer i = table.getSelectionModel().getSelectedItem().getId();
-
+            
+            if (table.getSelectionModel().getSelectedItem()==null) {
+                return;
+            }
+                Integer i = table.getSelectionModel().getSelectedItem().getId();
+            
             p.setPrixProduit(Double.parseDouble(txtprixProduit.getText()));
             p.setLibelle(txtlibelle.getText());
             p.setMarque(txtmarque.getText());
@@ -150,10 +159,13 @@ public class HomeController implements Initializable {
 
             pu.modifierObject(p);
             tableUpdate();
-
+            
         });
         
         btnSupprimer.setOnMouseClicked(e -> {
+             if (table.getSelectionModel().getSelectedItem()==null) {
+                return;
+            }
             Integer i = table.getSelectionModel().getSelectedItem().getId();
             pu.supprimerObject(i);
             tableUpdate();

@@ -72,7 +72,13 @@ public class AddProductController implements Initializable {
     @FXML
     private void AjouterButtonAction(ActionEvent event) {
         Produit produit = new Produit();
-
+        if (txtlibelle.getText().equals("")&&txtdescription.getText().equals("")&&txtmarque.getText().equals("")&&
+               txtprixProduit.getText().equals("")&&txtStock.getText().equals("") &&(file==null)
+                &&chDuree.getValue()==null&&chEtat.getValue()==null
+                
+                ) {
+            return;
+        }
         produit.setLibelle(txtlibelle.getText());
         produit.setDescription(txtdescription.getText());
         produit.setMarque(txtmarque.getText());
@@ -81,7 +87,6 @@ public class AddProductController implements Initializable {
         produit.setImageFile(file);
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
-        System.out.println(produit.getLibelle() + " " + produit.getEtat());
         produitService.ajouterProduit(produit);
         stage = (Stage) btnAjouter.getScene().getWindow();
         stage.close();

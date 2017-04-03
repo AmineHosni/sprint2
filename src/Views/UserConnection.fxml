@@ -11,7 +11,7 @@
       <Button fx:id="btnconnecter" layoutX="253.0" layoutY="70.0" mnemonicParsing="false" text="Connecter" />
       <TextField fx:id="txtUsername" layoutX="48.0" layoutY="24.0" promptText="username" />
       <TextField fx:id="txtPassword" layoutX="48.0" layoutY="70.0" promptText="password" />
-      <Button fx:id="btnexit" layoutX="330.0" layoutY="70.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="btnExit" layoutX="330.0" layoutY="70.0" mnemonicParsing="false" text="Exit" />
       <Label fx:id="lblWarning" layoutX="48.0" layoutY="106.0" prefHeight="17.0" prefWidth="149.0" />
    </children>
 </AnchorPane>
