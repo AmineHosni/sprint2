@@ -8,7 +8,9 @@ package Views;
 import dao.ProduitUtil;
 import entities.Produit;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Blob;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,7 +82,10 @@ public class HomeController implements Initializable {
 
             @Override
             public void handle(MouseEvent event) {
-            
+
+
+             
+                
                 if(table.getSelectionModel().getSelectedItem() == null)
                     return;
                 
@@ -91,26 +96,15 @@ public class HomeController implements Initializable {
                 txtStock.setText(table.getSelectionModel().getSelectedItem().getQuantiteStock().toString());
                 txtdescription.setText(table.getSelectionModel().getSelectedItem().getDescription());
                 
-//                File file = table.getSelectionModel().getSelectedItem().getImageFile();
-//          //      File file = new File("C:\\Users\\jamel_pc\\Desktop\\image.jpg");
-//        String img=null;
-//        try {
-//            
-//             img= file.toURI().toURL().toString();
-//        } catch (Exception e) {
-//        }
-//        System.out.println(img);
-//        Image image = new Image(img);
-//        
-//        imgView.setImage(image);
-//        
-
-            }
+            InputStream binaryStream = PU.returnImage(table.getSelectionModel().getSelectedItem().getId());
+            Image image = new Image(binaryStream);
+            imgView.setImage(image);
+  }
 
         });
 
     }
-
+          
     public void tableUpdate() {
         ObservableList<Produit> listProduit = PU.afficher();
         

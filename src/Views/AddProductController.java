@@ -9,7 +9,6 @@ import entities.Produit;
 import java.io.File;
 import java.net.MalformedURLException;
 
-
 import java.net.URL;
 
 import java.util.ResourceBundle;
@@ -38,24 +37,21 @@ import services.ProduitService;
  * @author jamel_pc
  */
 public class AddProductController implements Initializable {
- 
-    FXMLLoader loader; 
 
-    
+    FXMLLoader loader;
+
     private Stage stage;
     ProduitService produitService;
     File file;
-    ObservableList<String> etatList= FXCollections.observableArrayList("nouveau","occasion");
-    ObservableList<String> dureeList= FXCollections.observableArrayList("15","30","45");
-    
-    
-    
+    ObservableList<String> etatList = FXCollections.observableArrayList("nouveau", "occasion");
+    ObservableList<String> dureeList = FXCollections.observableArrayList("15", "30", "45");
+
     @FXML
-    ChoiceBox chEtat ,chDuree;
+    ChoiceBox chEtat, chDuree;
     @FXML
-    TextField txtStock,txtprixProduit,txtquantiteStock,txtmarque,txtlibelle;
+    TextField txtStock, txtprixProduit, txtquantiteStock, txtmarque, txtlibelle;
     @FXML
-    Label lblPhoto,lblDuree,lblEtat;
+    Label lblPhoto, lblDuree, lblEtat;
     @FXML
     ImageView Photoview;
     @FXML
@@ -63,20 +59,20 @@ public class AddProductController implements Initializable {
     @FXML
     Button btnAjouter;
     private HomeController homeController;
+
     /**
      * Initializes the controller class.
      */
-    public void initialize(){
+    public void initialize() {
         chDuree.setItems(dureeList);
         chEtat.setItems(etatList);
         produitService = new ProduitService();
     }
-    
-    
+
     @FXML
     private void AjouterButtonAction(ActionEvent event) {
         Produit produit = new Produit();
-        
+
         produit.setLibelle(txtlibelle.getText());
         produit.setDescription(txtdescription.getText());
         produit.setMarque(txtmarque.getText());
@@ -85,55 +81,50 @@ public class AddProductController implements Initializable {
         produit.setImageFile(file);
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
-        System.out.println(produit.getLibelle()+" "+produit.getEtat());
+        System.out.println(produit.getLibelle() + " " + produit.getEtat());
         produitService.ajouterProduit(produit);
-        stage = (Stage)btnAjouter.getScene().getWindow();
+        stage = (Stage) btnAjouter.getScene().getWindow();
         stage.close();
         homeController.tableUpdate();
-             
+
     }
-    
+
     @FXML
-    private void PhotoButtonAction(ActionEvent event)  {
-         
+    private void PhotoButtonAction(ActionEvent event) {
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                
-                new FileChooser.ExtensionFilter("Image Files","*.png","*.jpg","*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
         );
 
         file = fileChooser.showOpenDialog(stage);
-         if (file!=null) {
-                     lblPhoto.setText(file.getPath());
-                     try {
-           String img = file.toURI().toURL().toString();
-           Image image = new Image(img);
-             Photoview.setImage(image);
-                      Photoview.setFitWidth(300);
+        if (file != null) {
+            lblPhoto.setText(file.getPath());
+            try {
+                String img = file.toURI().toURL().toString();
+                Image image = new Image(img);
+                Photoview.setImage(image);
+                Photoview.setFitWidth(300);
 
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-         }
-      
- 
-      
-          
+
     }
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
         initialize();
-    }    
+    }
+
     void setStage(Stage primaryStage) {
         this.stage = primaryStage;
 
-
     }
-    
+
     public FXMLLoader getLoader() {
         return loader;
     }
@@ -145,5 +136,5 @@ public class AddProductController implements Initializable {
     void setHomeController(HomeController homeController) {
         this.homeController = homeController;
     }
-    
+
 }
