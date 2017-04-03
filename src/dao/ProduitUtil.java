@@ -5,13 +5,10 @@
  */
 package dao;
 
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXAboutDialog;
 import entities.Produit;
-import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +30,8 @@ public class ProduitUtil extends UtilInterface {
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
                 + "Photo,marque,etat,prixProduit,"
-                + "quantiteStock,created_date,duree,updated_at) values (?, ?, ?,?,?,?,?,?,?,?)";
+                + "quantiteStock,created_date,duree) values (?, ?, ?,?,?,?,?,?"
+                + ",?)";
 
         FileInputStream fis = null;
         PreparedStatement ps = null;
@@ -48,17 +46,18 @@ public class ProduitUtil extends UtilInterface {
             ps.setString(5, produit.getEtat());
             ps.setDouble(6, produit.getPrixProduit());
             ps.setInt(7, produit.getQuantiteStock());
-            //rigel idate 
-            ps.setDate(8, new java.sql.Date(1, 1, 1));
+
+            ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
-            ps.setDate(10, new java.sql.Date(1, 1, 1));
+
+            System.out.println(ps);
 
             ps.executeUpdate();
         } catch (SQLException | FileNotFoundException ex) {
-            
+
             System.out.println(ex);
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
-            
+
             return false;
         }
 
@@ -74,16 +73,15 @@ public class ProduitUtil extends UtilInterface {
         try {
             String MODIF_Produit = "  UPDATE `produit` SET `libelle`=?,"
                     + "`description`=?,`marque`=?,"
-                    + "`prixProduit`=?,`quantiteStock`=? WHERE `id`=?";
+                    + "`prixProduit`=?,`quantiteStock`=? ,`updated_at`=? WHERE `id`=?";
             ps = conn.prepareStatement(MODIF_Produit);
             ps.setString(1, produit.getLibelle());
             ps.setString(2, produit.getDescription());
             ps.setString(3, produit.getMarque());
             ps.setDouble(4, produit.getPrixProduit());
             ps.setInt(5, produit.getQuantiteStock());
-            System.out.println(produit.getId());
-            ps.setInt(6, produit.getId());
-            System.out.println(ps);
+            ps.setDate(6, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            ps.setInt(7, produit.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,14 +95,14 @@ public class ProduitUtil extends UtilInterface {
         try {
             String Delete_Produit = "DELETE FROM `produit` WHERE `id`=" + i;
             i = stmt.executeUpdate(Delete_Produit);
-             System.out.println("dao.ProduitUtil.supprimerObject()");
+            System.out.println("dao.ProduitUtil.supprimerObject()");
             return true;
-           
+
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-      
+
     }
 
     public ObservableList<Produit> afficher() {
@@ -129,8 +127,6 @@ public class ProduitUtil extends UtilInterface {
                 produit.setDuree(res.getInt("duree"));
                 produit.setApprouver(res.getString("approuver"));
                 produit.setSeller(res.getInt("seller"));
-                //InputStream binaryStream = res.getBinaryStream("Photo");
-                //produit.setImageFile(res.getBinaryStream("Photo"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
 
                 products.add(produit);
@@ -160,9 +156,6 @@ public class ProduitUtil extends UtilInterface {
             produit.setDuree(res.getInt("duree"));
             produit.setApprouver(res.getString("approuver"));
             produit.setSeller(res.getInt("seller"));
-
-          //  produit.setImageFile((File)res.getObject("Photo"));
-
             if (produit.getImageFile() == null) {
                 System.out.println("null");
             } else {
