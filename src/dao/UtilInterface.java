@@ -33,7 +33,7 @@ public abstract  class UtilInterface {
         try {
             stmt = conn.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(CategorieUtil.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UtilInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

@@ -6,9 +6,14 @@
 package dao;
 
 import entities.Produit;
+import java.io.File;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,7 +55,6 @@ public class ProduitUtil extends UtilInterface {
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
 
-            System.out.println(ps);
 
             ps.executeUpdate();
         } catch (SQLException | FileNotFoundException ex) {
@@ -128,7 +132,11 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(res.getString("approuver"));
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
-
+                
+                Blob blob = res.getBlob("Photo");
+                InputStream is = blob.getBinaryStream();
+                
+                
                 products.add(produit);
 
             }
@@ -138,6 +146,22 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
+    public InputStream returnImage(int i){
+        InputStream image = null ;
+        try {
+            String req3 = "select * from produit where "+i;
+            ResultSet res = stmt.executeQuery(req3);
+            while (res.next()) {
+                image= res.getBinaryStream("Photo");
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return image;
+    }
+    
+    
     public Produit afficherUnProduit(Integer p) {
         Produit produit = new Produit();
         String req3 = "select * from produit Where `id`=" + p;
