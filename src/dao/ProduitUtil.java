@@ -6,13 +6,9 @@
 package dao;
 
 import entities.Produit;
-import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,10 +33,8 @@ public class ProduitUtil extends UtilInterface {
                 + "Photo,marque,etat,prixProduit,"
                 + "quantiteStock,created_date,duree) values (?, ?, ?,?,?,?,?,?"
                 + ",?)";
-
-        FileInputStream fis = null;
-        PreparedStatement ps = null;
-
+        FileInputStream fis ;
+        PreparedStatement ps ;
         try {
             fis = new FileInputStream(produit.getImageFile());
             ps = conn.prepareStatement(INSERT_PRODUIT);
@@ -51,14 +45,10 @@ public class ProduitUtil extends UtilInterface {
             ps.setString(5, produit.getEtat());
             ps.setDouble(6, produit.getPrixProduit());
             ps.setInt(7, produit.getQuantiteStock());
-
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
-
-
             ps.executeUpdate();
         } catch (SQLException | FileNotFoundException ex) {
-
             System.out.println(ex);
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -98,8 +88,7 @@ public class ProduitUtil extends UtilInterface {
     public boolean supprimerObject(Integer i) {
         try {
             String Delete_Produit = "DELETE FROM `produit` WHERE `id`=" + i;
-            i = stmt.executeUpdate(Delete_Produit);
-            System.out.println("dao.ProduitUtil.supprimerObject()");
+             stmt.executeUpdate(Delete_Produit);
             return true;
 
         } catch (SQLException ex) {
@@ -132,11 +121,10 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(res.getString("approuver"));
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
-                
+
                 Blob blob = res.getBlob("Photo");
                 InputStream is = blob.getBinaryStream();
-                
-                
+
                 products.add(produit);
 
             }
@@ -146,32 +134,28 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
-    public InputStream returnImage(int i){
-        InputStream image = null ;
+    public InputStream returnImage(int i) {
+        InputStream image = null;
         try {
-            String req3 = "select * from produit where "+i;
+            String req3 = "select * from produit where " + i;
             ResultSet res = stmt.executeQuery(req3);
-                        System.out.println(res);
+            System.out.println(res);
 
             while (res.next()) {
-                image= res.getBinaryStream("Photo");
-                
+                image = res.getBinaryStream("Photo");
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return image;
     }
-    
-    
     public Produit afficherUnProduit(Integer p) {
         Produit produit = new Produit();
         String req3 = "select * from produit Where `id`=" + p;
         try {
             ResultSet res = stmt.executeQuery(req3);
             res.next();
-
             produit.setId(res.getInt("id"));
             produit.setLibelle(res.getString("libelle"));
             produit.setDescription(res.getString("description"));
@@ -195,7 +179,6 @@ public class ProduitUtil extends UtilInterface {
         }
         return produit;
     }
-
     @Override
     public void afficherObject() {
         String req3 = "select * from produit";
@@ -254,7 +237,6 @@ public class ProduitUtil extends UtilInterface {
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return listProduits;
     }
 

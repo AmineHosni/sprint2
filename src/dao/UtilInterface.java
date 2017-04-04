@@ -9,7 +9,6 @@ import Utils.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,18 +16,19 @@ import java.util.logging.Logger;
  *
  * @author jamel_pc
  */
+public abstract class UtilInterface {
 
+    public abstract boolean ajouterObject(Object p);
 
-public abstract  class UtilInterface {
-    
-
-    public abstract boolean ajouterObject(Object p);   
     public abstract boolean modifierObject(Object p);
+
     public abstract boolean supprimerObject(Integer i);
+
     public abstract void afficherObject();
     Connection conn;
     Statement stmt;
-    public void initConnection(){
+
+    public void initConnection() {
         conn = DatabaseConnection.getInstance().getConnection();
         try {
             stmt = conn.createStatement();
@@ -36,5 +36,5 @@ public abstract  class UtilInterface {
             Logger.getLogger(UtilInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

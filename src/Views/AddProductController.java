@@ -5,6 +5,7 @@
  */
 package Views;
 
+import com.jfoenix.controls.JFXButton;
 import entities.Produit;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -15,12 +16,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.*;
+import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -59,7 +59,6 @@ public class AddProductController implements Initializable {
     @FXML
     Button btnAjouter;
     private HomeController homeController;
-
     /**
      * Initializes the controller class.
      */
@@ -68,15 +67,13 @@ public class AddProductController implements Initializable {
         chEtat.setItems(etatList);
         produitService = new ProduitService();
     }
-
     @FXML
     private void AjouterButtonAction(ActionEvent event) {
         Produit produit = new Produit();
-        if (txtlibelle.getText().equals("")&&txtdescription.getText().equals("")&&txtmarque.getText().equals("")&&
-               txtprixProduit.getText().equals("")&&txtStock.getText().equals("") &&(file==null)
-                &&chDuree.getValue()==null&&chEtat.getValue()==null
-                
-                ) {
+        if (txtlibelle.getText().equals("") || txtdescription.getText().equals("") ||
+                txtmarque.getText().equals("")
+                || txtprixProduit.getText().equals("") || txtStock.getText().equals("") || (file == null)
+                || chDuree.getValue() == null || chEtat.getValue() == null) {
             return;
         }
         produit.setLibelle(txtlibelle.getText());
@@ -91,17 +88,15 @@ public class AddProductController implements Initializable {
         stage = (Stage) btnAjouter.getScene().getWindow();
         stage.close();
         homeController.tableUpdate();
-
     }
-
+    
     @FXML
     private void PhotoButtonAction(ActionEvent event) {
-
+        System.out.println("Views.AddProductController.PhotoButtonAction()");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
         );
-
         file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             lblPhoto.setText(file.getPath());
@@ -110,36 +105,26 @@ public class AddProductController implements Initializable {
                 Image image = new Image(img);
                 Photoview.setImage(image);
                 Photoview.setFitWidth(300);
-
             } catch (MalformedURLException ex) {
                 Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
     }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-
         initialize();
     }
-
     void setStage(Stage primaryStage) {
         this.stage = primaryStage;
 
     }
-
     public FXMLLoader getLoader() {
         return loader;
     }
-
     public void setLoader(FXMLLoader loader) {
         this.loader = loader;
     }
-
     void setHomeController(HomeController homeController) {
         this.homeController = homeController;
     }
-
 }

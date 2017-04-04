@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,11 +10,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AddProductController">
    <children>
-  <Button fx:id="btnAjouter" layoutX="504.0" layoutY="348.0" mnemonicParsing="false" onAction="#AjouterButtonAction" text="Ajouter" />
       <Button fx:id="btnInitialiser" layoutX="426.0" layoutY="348.0" mnemonicParsing="false" text="Initialiser" />
-      <Button fx:id="btnPhoto" layoutX="43.0" layoutY="348.0" mnemonicParsing="false" onAction="#PhotoButtonAction" text="Photo" />
       <TextField fx:id="txtlibelle" layoutX="43.0" layoutY="36.0" promptText="libelle" />
-      <Label fx:id="lblPhoto" layoutX="394.0" layoutY="230.0" prefHeight="17.0" prefWidth="32.0" />
+      <Label fx:id="lblPhoto" layoutX="349.0" layoutY="230.0" prefHeight="17.0" prefWidth="126.0" />
       <TextField fx:id="txtmarque" layoutX="43.0" layoutY="159.0" promptText="marque" />
       <TextField fx:id="txtprixProduit" layoutX="43.0" layoutY="235.0" promptText="Prix" />
       <TextField fx:id="txtStock" layoutX="43.0" layoutY="281.0" promptText="Stock" />
@@ -23,6 +22,8 @@
             <ChoiceBox fx:id="chDuree" layoutX="130.0" layoutY="317.0" prefHeight="25.0" prefWidth="64.0" />
       <ImageView fx:id="Photoview" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="txtdescription" layoutX="43.0" layoutY="73.0" prefHeight="67.0" prefWidth="228.0" promptText="Description" />
+      <JFXButton fx:id="btnAjouter" layoutX="506.0" layoutY="348.0" onAction="#AjouterButtonAction" style="-fx-background-color: #7EFFDB;" text="Ajouter" />
+      <JFXButton fx:id="btnPhoto" layoutX="73.0" layoutY="348.0" onAction="#PhotoButtonAction" style="-fx-background-color: #7EFFDB;" text="Photo" />
 
          </children>
 </AnchorPane>

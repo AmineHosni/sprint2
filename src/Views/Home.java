@@ -17,22 +17,16 @@ import javafx.scene.Parent;
  * @author jamel_pc
  */
 public class Home extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
         Parent root = (Parent) loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Home");
         primaryStage.setScene(scene);
-
         primaryStage.show();
-
     }
-
     public static void main(String[] args) {
         launch(args);
     }
-
 }
