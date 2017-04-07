@@ -5,7 +5,7 @@
  */
 package Views;
 
-import com.jfoenix.controls.JFXButton;
+import dao.CategorieUtil;
 import entities.Produit;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -47,7 +47,7 @@ public class AddProductController implements Initializable {
     ObservableList<String> dureeList = FXCollections.observableArrayList("15", "30", "45");
 
     @FXML
-    ChoiceBox chEtat, chDuree;
+    ChoiceBox chEtat, chDuree,chCategorie;
     @FXML
     TextField txtStock, txtprixProduit, txtquantiteStock, txtmarque, txtlibelle;
     @FXML
@@ -66,6 +66,8 @@ public class AddProductController implements Initializable {
         chDuree.setItems(dureeList);
         chEtat.setItems(etatList);
         produitService = new ProduitService();
+         CategorieUtil categorieUtil = new CategorieUtil();
+         chCategorie.setItems(categorieUtil.listerCategorie());
     }
     @FXML
     private void AjouterButtonAction(ActionEvent event) {
@@ -84,6 +86,8 @@ public class AddProductController implements Initializable {
         produit.setImageFile(file);
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
+        CategorieUtil categorieUtil = new CategorieUtil();
+        produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
         stage = (Stage) btnAjouter.getScene().getWindow();
         stage.close();
@@ -92,7 +96,6 @@ public class AddProductController implements Initializable {
     
     @FXML
     private void PhotoButtonAction(ActionEvent event) {
-        System.out.println("Views.AddProductController.PhotoButtonAction()");
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
@@ -113,6 +116,7 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initialize();
+        
     }
     void setStage(Stage primaryStage) {
         this.stage = primaryStage;

@@ -27,7 +27,7 @@ public class UtilisateurUtil extends UtilInterface{
         boolean verif = false ;
         //,`salt`
     try {
-        ResultSet  res =  stmt.executeQuery(req3);
+        ResultSet  res =  statement.executeQuery(req3);
            while (res.next()) {
                
               

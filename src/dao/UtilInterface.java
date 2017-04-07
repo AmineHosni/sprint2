@@ -26,12 +26,12 @@ public abstract class UtilInterface {
 
     public abstract void afficherObject();
     Connection conn;
-    Statement stmt;
+    Statement statement;
 
     public void initConnection() {
         conn = DatabaseConnection.getInstance().getConnection();
         try {
-            stmt = conn.createStatement();
+            statement = conn.createStatement();
         } catch (SQLException ex) {
             Logger.getLogger(UtilInterface.class.getName()).log(Level.SEVERE, null, ex);
         }

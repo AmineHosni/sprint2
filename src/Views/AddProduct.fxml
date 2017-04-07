@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AddProductController">
+<AnchorPane id="AnchorPane" prefHeight="436.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AddProductController">
    <children>
       <Button fx:id="btnInitialiser" layoutX="426.0" layoutY="348.0" mnemonicParsing="false" text="Initialiser" />
       <TextField fx:id="txtlibelle" layoutX="43.0" layoutY="36.0" promptText="libelle" />
@@ -16,14 +16,16 @@
       <TextField fx:id="txtmarque" layoutX="43.0" layoutY="159.0" promptText="marque" />
       <TextField fx:id="txtprixProduit" layoutX="43.0" layoutY="235.0" promptText="Prix" />
       <TextField fx:id="txtStock" layoutX="43.0" layoutY="281.0" promptText="Stock" />
-      <ChoiceBox fx:id="chEtat" layoutX="75.0" layoutY="200.0" prefHeight="25.0" prefWidth="117.0" />
+      <ChoiceBox fx:id="chEtat" layoutX="75.0" layoutY="200.0" prefHeight="25.0" prefWidth="100.0" />
       <Label fx:id="lblEtat" layoutX="43.0" layoutY="204.0" text="Etat" />
       <Label fx:id="lblDuree" layoutX="41.0" layoutY="321.0" text="Duree" />
-            <ChoiceBox fx:id="chDuree" layoutX="130.0" layoutY="317.0" prefHeight="25.0" prefWidth="64.0" />
+            <ChoiceBox fx:id="chDuree" layoutX="111.0" layoutY="317.0" prefHeight="25.0" prefWidth="64.0" />
       <ImageView fx:id="Photoview" fitHeight="150.0" fitWidth="200.0" layoutX="300.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
       <TextArea fx:id="txtdescription" layoutX="43.0" layoutY="73.0" prefHeight="67.0" prefWidth="228.0" promptText="Description" />
       <JFXButton fx:id="btnAjouter" layoutX="506.0" layoutY="348.0" onAction="#AjouterButtonAction" style="-fx-background-color: #7EFFDB;" text="Ajouter" />
-      <JFXButton fx:id="btnPhoto" layoutX="73.0" layoutY="348.0" onAction="#PhotoButtonAction" style="-fx-background-color: #7EFFDB;" text="Photo" />
+      <JFXButton fx:id="btnPhoto" layoutX="75.0" layoutY="389.0" onAction="#PhotoButtonAction" style="-fx-background-color: #7EFFDB;" text="Photo" />
+      <ChoiceBox fx:id="chCategorie" layoutX="111.0" layoutY="348.0" prefHeight="25.0" prefWidth="100.0" />
+      <Label layoutX="43.0" layoutY="352.0" text="Catgorie" />
 
          </children>
 </AnchorPane>

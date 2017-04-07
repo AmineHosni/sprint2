@@ -33,8 +33,8 @@ public class ProduitUtil extends UtilInterface {
                 + "Photo,marque,etat,prixProduit,"
                 + "quantiteStock,created_date,duree) values (?, ?, ?,?,?,?,?,?"
                 + ",?)";
-        FileInputStream fis ;
-        PreparedStatement ps ;
+        FileInputStream fis;
+        PreparedStatement ps;
         try {
             fis = new FileInputStream(produit.getImageFile());
             ps = conn.prepareStatement(INSERT_PRODUIT);
@@ -88,7 +88,7 @@ public class ProduitUtil extends UtilInterface {
     public boolean supprimerObject(Integer i) {
         try {
             String Delete_Produit = "DELETE FROM `produit` WHERE `id`=" + i;
-             stmt.executeUpdate(Delete_Produit);
+            statement.executeUpdate(Delete_Produit);
             return true;
 
         } catch (SQLException ex) {
@@ -105,7 +105,7 @@ public class ProduitUtil extends UtilInterface {
 
         try {
 
-            ResultSet res = stmt.executeQuery(req3);
+            ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
                 Produit produit = new Produit();
 
@@ -137,9 +137,9 @@ public class ProduitUtil extends UtilInterface {
     public InputStream returnImage(int i) {
         InputStream image = null;
         try {
-            String req3 = "select * from produit where " + i;
-            ResultSet res = stmt.executeQuery(req3);
-            System.out.println(res);
+            String req3 = "select `Photo` from produit where `id`= " + i;
+
+            ResultSet res = statement.executeQuery(req3);
 
             while (res.next()) {
                 image = res.getBinaryStream("Photo");
@@ -150,11 +150,12 @@ public class ProduitUtil extends UtilInterface {
         }
         return image;
     }
+
     public Produit afficherUnProduit(Integer p) {
         Produit produit = new Produit();
         String req3 = "select * from produit Where `id`=" + p;
         try {
-            ResultSet res = stmt.executeQuery(req3);
+            ResultSet res = statement.executeQuery(req3);
             res.next();
             produit.setId(res.getInt("id"));
             produit.setLibelle(res.getString("libelle"));
@@ -179,29 +180,30 @@ public class ProduitUtil extends UtilInterface {
         }
         return produit;
     }
+
     @Override
     public void afficherObject() {
         String req3 = "select * from produit";
 
         try {
 
-            ResultSet res = stmt.executeQuery(req3);
-            while (res.next()) {
+            ResultSet resultSet = statement.executeQuery(req3);
+            while (resultSet.next()) {
 
-                String id = res.getString("id");
-                String libelle = res.getString("libelle");
-                String description = res.getString("description");
-                String marque = res.getString("marque");
-                String etat = res.getString("etat");
-                String prixProduit = res.getString("prixProduit");
-                String quantiteStock = res.getString("quantiteStock");
-                String pourcentagePromotion = res.getString("pourcentagePromotion");
-                String created_date = res.getString("created_date");
-                String duree = res.getString("duree");
-                String approuver = res.getString("approuver");
-                String seller = res.getString("seller");
-                String image_name = res.getString("image_name");
-                String updated_at = res.getString("updated_at");
+                String id = resultSet.getString("id");
+                String libelle = resultSet.getString("libelle");
+                String description = resultSet.getString("description");
+                String marque = resultSet.getString("marque");
+                String etat = resultSet.getString("etat");
+                String prixProduit = resultSet.getString("prixProduit");
+                String quantiteStock = resultSet.getString("quantiteStock");
+                String pourcentagePromotion = resultSet.getString("pourcentagePromotion");
+                String created_date = resultSet.getString("created_date");
+                String duree = resultSet.getString("duree");
+                String approuver = resultSet.getString("approuver");
+                String seller = resultSet.getString("seller");
+                String image_name = resultSet.getString("image_name");
+                String updated_at = resultSet.getString("updated_at");
                 System.out.format("%s, %s , %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s\n",
                         id, libelle, description, marque, etat, prixProduit, quantiteStock, pourcentagePromotion, created_date, duree, approuver, seller, image_name, updated_at);
 
@@ -218,7 +220,7 @@ public class ProduitUtil extends UtilInterface {
         List<Produit> listProduits = null;
         try {
             String query = "select * from produit order by created_date desc";
-            ResultSet resultSet = stmt.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
             System.out.println(resultSet);
             while (resultSet.next()) {
                 listProduits = new ArrayList<>();
@@ -240,4 +242,146 @@ public class ProduitUtil extends UtilInterface {
         return listProduits;
     }
 
+    public ObservableList<Produit> SearchByName(String search) {
+        ObservableList<Produit> products = FXCollections.observableArrayList();
+
+        String requeteSearch = "SELECT * FROM produit  WHERE `libelle` LIKE '" + search + "%'";
+        try {
+
+            ResultSet resultSet = statement.executeQuery(requeteSearch);
+
+            while (resultSet.next()) {
+                Produit produit = new Produit();
+                produit.setId(resultSet.getInt("id"));
+                produit.setLibelle(resultSet.getString("libelle"));
+                produit.setDescription(resultSet.getString("description"));
+                produit.setMarque(resultSet.getString("marque"));
+                produit.setEtat(resultSet.getString("etat"));
+                produit.setPrixProduit(resultSet.getDouble("prixProduit"));
+                produit.setQuantiteStock(resultSet.getInt("quantiteStock"));
+                produit.setCreatedDate(resultSet.getDate("created_date"));
+                produit.setDuree(resultSet.getInt("duree"));
+                produit.setApprouver(resultSet.getString("approuver"));
+                produit.setSeller(resultSet.getInt("seller"));
+                produit.setUpdatedAt(resultSet.getDate("updated_at"));
+                Blob blob = resultSet.getBlob("Photo");
+                InputStream is = blob.getBinaryStream();
+                products.add(produit);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return products;
+    }
+
+    public ObservableList<Produit> SearchByCategorie(String categorie) {
+        ResultSet searchResultSet = null;
+        ResultSet CategorieResultSet = null;
+        Integer id = 0;
+        ObservableList<Produit> products = FXCollections.observableArrayList();
+        
+        String requeteCategorie = "SELECT `id` FROM `categorie` WHERE  `nomCategorie`='"+categorie+"'";
+        try {
+            CategorieResultSet = statement.executeQuery(requeteCategorie);
+            while (CategorieResultSet.next())
+            id = CategorieResultSet.getInt("id");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String requeteSearch = "SELECT * FROM produit  WHERE `produitCategorie` LIKE '" + id + "'";
+                System.out.println(requeteSearch);
+
+        try {
+
+            searchResultSet = statement.executeQuery(requeteSearch);
+
+            while (searchResultSet.next()) {
+                Produit produit = new Produit();
+                produit.setId(searchResultSet.getInt("id"));
+                produit.setLibelle(searchResultSet.getString("libelle"));
+                produit.setDescription(searchResultSet.getString("description"));
+                produit.setMarque(searchResultSet.getString("marque"));
+                produit.setEtat(searchResultSet.getString("etat"));
+                produit.setPrixProduit(searchResultSet.getDouble("prixProduit"));
+                produit.setQuantiteStock(searchResultSet.getInt("quantiteStock"));
+                produit.setCreatedDate(searchResultSet.getDate("created_date"));
+                produit.setDuree(searchResultSet.getInt("duree"));
+                produit.setApprouver(searchResultSet.getString("approuver"));
+                produit.setSeller(searchResultSet.getInt("seller"));
+                produit.setUpdatedAt(searchResultSet.getDate("updated_at"));
+                Blob blob = searchResultSet.getBlob("Photo");
+                InputStream is = blob.getBinaryStream();
+                products.add(produit);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return products;
+    }
+
+    public ObservableList<Produit> SearchByPrice(Double minPrix,Double maxPrix) {
+        ObservableList<Produit> products = FXCollections.observableArrayList();
+
+        String requetePriceSearch = "SELECT * FROM `produit` WHERE `prixProduit` BETWEEN "+minPrix +"AND "+maxPrix;
+        try {
+
+            ResultSet resultSet = statement.executeQuery(requetePriceSearch);
+
+            while (resultSet.next()) {
+                Produit produit = new Produit();
+                produit.setId(resultSet.getInt("id"));
+                produit.setLibelle(resultSet.getString("libelle"));
+                produit.setDescription(resultSet.getString("description"));
+                produit.setMarque(resultSet.getString("marque"));
+                produit.setEtat(resultSet.getString("etat"));
+                produit.setPrixProduit(resultSet.getDouble("prixProduit"));
+                produit.setQuantiteStock(resultSet.getInt("quantiteStock"));
+                produit.setCreatedDate(resultSet.getDate("created_date"));
+                produit.setDuree(resultSet.getInt("duree"));
+                produit.setApprouver(resultSet.getString("approuver"));
+                produit.setSeller(resultSet.getInt("seller"));
+                produit.setUpdatedAt(resultSet.getDate("updated_at"));
+                Blob blob = resultSet.getBlob("Photo");
+                InputStream is = blob.getBinaryStream();
+                products.add(produit);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return products;
+    }
+public Double maxPrice() {
+Double prix= null;
+        String requeteMaxPrice = "SELECT MAX(`prixProduit`) FROM produit";
+        try {
+
+            ResultSet resultSet = statement.executeQuery(requeteMaxPrice);
+
+            while (resultSet.next()) {
+           
+            prix =    resultSet.getDouble("MAX(`prixProduit`)");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return prix;
+    }
+
+
+
+
 }
+
+
+

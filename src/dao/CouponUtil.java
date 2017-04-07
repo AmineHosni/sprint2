@@ -31,7 +31,7 @@ public class CouponUtil extends UtilInterface{
             String req="INSERT INTO `Coupon` (`reference`, `img`) "
                     + "VALUES ('"+coupon.getReference()+"', "+coupon.getImg()+")";
             
-         i= stmt.executeUpdate(req);
+         i= statement.executeUpdate(req);
         } catch (SQLException ex) {
             Logger.getLogger(CouponUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,7 +52,7 @@ public class CouponUtil extends UtilInterface{
             String req="UPDATE `coupon` SET `reference`="+coupon.getReference()+
                     ",`img`='"+coupon.getImg()+"' WHERE "+coupon.getId();     
             
-         i= stmt.executeUpdate(req);
+         i= statement.executeUpdate(req);
         } catch (SQLException ex) {
             Logger.getLogger(CouponUtil.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -71,7 +71,7 @@ public class CouponUtil extends UtilInterface{
       //  int i= 0;
         try {
             String req="DELETE FROM `coupon` WHERE "+i;
-         i= stmt.executeUpdate(req);
+         i= statement.executeUpdate(req);
          return true;       
         
         } catch (SQLException ex) {
@@ -86,7 +86,7 @@ public class CouponUtil extends UtilInterface{
         
         try {
             String req3="select * from Coupon";
-            ResultSet res =  stmt.executeQuery(req3);
+            ResultSet res =  statement.executeQuery(req3);
             while (res.next()) {                
            String reference = res.getString("reference");
         String image = res.getString("img");

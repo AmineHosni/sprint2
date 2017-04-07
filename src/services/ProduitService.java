@@ -8,9 +8,10 @@ package services;
 
 import dao.ProduitUtil;
 import entities.Produit;
-import java.io.File;
 import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import dao.UtilInterface;
 /**
  *
  * @author jamel_pc
@@ -20,6 +21,7 @@ public class ProduitService {
     
     public ProduitService(){
         produitUtil = new ProduitUtil();
+        
     }
     
     public List<Produit> listProduitsOrderByCreationDate(){
@@ -31,5 +33,21 @@ public class ProduitService {
         
         return produitUtil.ajouterObject(produitToAdd);        
     }
+    
+    public ObservableList<Produit> SearchByName(String search){
+       
+        
+        return produitUtil.SearchByName(search);
+    }
+     public ObservableList<Produit> SearchByPrice(Double minPrix,Double maxPrix){
+       
+        
+        return produitUtil.SearchByPrice( minPrix, maxPrix);
+    }
+     public Double maxPrice() {
+     
+     return produitUtil.maxPrice();
+     
+     }
     
 }
