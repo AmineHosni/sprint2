@@ -36,5 +36,6 @@
       <JFXSlider fx:id="prixMinSlider" layoutX="333.0" layoutY="465.0" />
       <Label fx:id="lblMinPrix" layoutX="540.0" layoutY="464.0" text="Label" />
       <Label fx:id="lblMaxPrix" layoutX="540.0" layoutY="502.0" text="Label" />
+      <JFXButton fx:id="btnDetails" layoutX="917.0" layoutY="400.0" style="-fx-background-color: #7EFFDB;" text="Details" />
    </children>
 </AnchorPane>

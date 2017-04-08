@@ -53,7 +53,7 @@ public class HomeController implements Initializable {
     @FXML
     TableColumn<Produit, String> Stock;
     @FXML
-    JFXButton btnModifier, btnSupprimer, btnAjouter;
+    JFXButton btnModifier, btnSupprimer, btnAjouter, btnDetails;
     @FXML
     TextField txtStock, txtprixProduit, txtquantiteStock, txtmarque, txtlibelle;
     @FXML
@@ -184,16 +184,35 @@ public class HomeController implements Initializable {
         });
 
         prixMaxSlider.setOnMouseClicked(e -> {
-        lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
-                  prixMinSlider.setMax(prixMaxSlider.getValue());
-            tableAfterSearch(produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
-        });
-      
-        prixMinSlider.setOnMouseClicked(e -> {
-            lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));  
+            lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
             prixMinSlider.setMax(prixMaxSlider.getValue());
             tableAfterSearch(produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
         });
 
+        prixMinSlider.setOnMouseClicked(e -> {
+            lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
+            prixMinSlider.setMax(prixMaxSlider.getValue());
+            tableAfterSearch(produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
+        });
+
+        btnDetails.setOnAction(e -> {
+            if (table.getSelectionModel().getSelectedItem().getId() != null) {
+                DisplayProduct displayProduct = new DisplayProduct(this, table.getSelectionModel().getSelectedItem());
+                
+                
+                try {
+                     Stage stage = new Stage();
+                    displayProduct.start(stage);
+                    System.out.println(displayProduct.produit);
+                } catch (Exception ex) {
+                    Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                System.out.println("null");
+            }
+           
+
+        });
     }
 }
