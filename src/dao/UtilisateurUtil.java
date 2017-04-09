@@ -22,9 +22,9 @@ public class UtilisateurUtil extends UtilInterface{
     
     
     
-     public boolean VerifUsername(String name,String password) {
-        String req3="select `username` ,`password`  from utilisateur";
-        boolean verif = false ;
+     public Integer VerifUsername(String name,String password) {
+        String req3="select *  from utilisateur";
+        Integer idUser = null;
         //,`salt`
     try {
         ResultSet  res =  statement.executeQuery(req3);
@@ -32,11 +32,10 @@ public class UtilisateurUtil extends UtilInterface{
                
               
                
-               if ((name.equals(res.getString(1)))&&(password.equals(res.getString(2)))) {
+               if ((name.equals(res.getString("username")))&&(password.equals(res.getString("password")))) {
                   
-               verif = true;
-               
-               }else verif = false;
+                   idUser= res.getInt("id");
+               }
                
                
                
@@ -44,7 +43,7 @@ public class UtilisateurUtil extends UtilInterface{
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return verif;
+    return idUser;
     
     }
     @Override

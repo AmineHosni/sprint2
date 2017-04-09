@@ -30,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ProduitService;
+import services.SendMail;
 
 /**
  * FXML Controller class
@@ -47,7 +48,7 @@ public class AddProductController implements Initializable {
     ObservableList<String> dureeList = FXCollections.observableArrayList("15", "30", "45");
 
     @FXML
-    ChoiceBox chEtat, chDuree,chCategorie;
+    ChoiceBox chEtat, chDuree, chCategorie;
     @FXML
     TextField txtStock, txtprixProduit, txtquantiteStock, txtmarque, txtlibelle;
     @FXML
@@ -59,6 +60,7 @@ public class AddProductController implements Initializable {
     @FXML
     Button btnAjouter;
     private HomeController homeController;
+
     /**
      * Initializes the controller class.
      */
@@ -66,14 +68,15 @@ public class AddProductController implements Initializable {
         chDuree.setItems(dureeList);
         chEtat.setItems(etatList);
         produitService = new ProduitService();
-         CategorieUtil categorieUtil = new CategorieUtil();
-         chCategorie.setItems(categorieUtil.listerCategorie());
+        CategorieUtil categorieUtil = new CategorieUtil();
+        chCategorie.setItems(categorieUtil.listerCategorie());
     }
+
     @FXML
     private void AjouterButtonAction(ActionEvent event) {
         Produit produit = new Produit();
-        if (txtlibelle.getText().equals("") || txtdescription.getText().equals("") ||
-                txtmarque.getText().equals("")
+        if (txtlibelle.getText().equals("") || txtdescription.getText().equals("")
+                || txtmarque.getText().equals("")
                 || txtprixProduit.getText().equals("") || txtStock.getText().equals("") || (file == null)
                 || chDuree.getValue() == null || chEtat.getValue() == null) {
             return;
@@ -89,11 +92,17 @@ public class AddProductController implements Initializable {
         CategorieUtil categorieUtil = new CategorieUtil();
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
+
+        SendMail sendMail = new SendMail();
+        sendMail.envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + txtlibelle.getText(),
+                "l'ajout du "+txtlibelle.getText());
+
         stage = (Stage) btnAjouter.getScene().getWindow();
+
         stage.close();
         homeController.tableUpdate();
     }
-    
+
     @FXML
     private void PhotoButtonAction(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -113,21 +122,26 @@ public class AddProductController implements Initializable {
             }
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initialize();
-        
+
     }
+
     void setStage(Stage primaryStage) {
         this.stage = primaryStage;
 
     }
+
     public FXMLLoader getLoader() {
         return loader;
     }
+
     public void setLoader(FXMLLoader loader) {
         this.loader = loader;
     }
+
     void setHomeController(HomeController homeController) {
         this.homeController = homeController;
     }

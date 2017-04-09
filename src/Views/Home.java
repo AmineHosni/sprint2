@@ -16,12 +16,20 @@ import javafx.scene.Parent;
  *
  * @author jamel_pc
  */
+
 public class Home extends Application {
+     Integer idUser;
+     public Home(Integer idUser) {
+        this.idUser= idUser;
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Home.fxml"));
         Parent root = (Parent) loader.load();
         Scene scene = new Scene(root);
+        HomeController homeController= loader.getController();
+        homeController.idUser=idUser;
         primaryStage.setTitle("Home");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -29,4 +37,8 @@ public class Home extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+   
+
+   
+    
 }

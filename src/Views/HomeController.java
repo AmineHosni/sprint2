@@ -6,6 +6,7 @@
 package Views;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dao.ProduitUtil;
 import entities.Produit;
 import java.io.InputStream;
@@ -25,7 +26,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.*;
 import dao.CategorieUtil;
-import javafx.scene.Cursor;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -34,6 +37,11 @@ import javafx.scene.Cursor;
  */
 public class HomeController implements Initializable {
 
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private JFXHamburger btnHamburger;
+    Integer idUser = 9;
     @FXML
     JFXComboBox cmbCategorie;
     @FXML
@@ -59,7 +67,7 @@ public class HomeController implements Initializable {
     @FXML
     JFXTextField txtSearch;
     @FXML
-    Label lblPhoto, lblDuree, lblEtat, lblMinPrix, lblMaxPrix;
+    Label lblPhoto, lblDuree, lblEtat, lblMinPrix, lblMaxPrix, lblSearch;
     @FXML
     TextArea txtdescription;
     @FXML
@@ -70,6 +78,7 @@ public class HomeController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      *
      *
      */
@@ -145,6 +154,7 @@ public class HomeController implements Initializable {
         lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
         prixMaxSlider.setMax(produitService.maxPrice());
         prixMinSlider.setValue(0);
+
         tableUpdate();
         Mousepress();
 
@@ -165,6 +175,7 @@ public class HomeController implements Initializable {
 
         });
         btnAjouter.setOnMouseClicked(e -> {
+
             AddProduct addProduct = new AddProduct(this);
             Stage stage = new Stage();
             try {
@@ -198,10 +209,9 @@ public class HomeController implements Initializable {
         btnDetails.setOnAction(e -> {
             if (table.getSelectionModel().getSelectedItem().getId() != null) {
                 DisplayProduct displayProduct = new DisplayProduct(this, table.getSelectionModel().getSelectedItem());
-                
-                
+
                 try {
-                     Stage stage = new Stage();
+                    Stage stage = new Stage();
                     displayProduct.start(stage);
                     System.out.println(displayProduct.produit);
                 } catch (Exception ex) {
@@ -211,8 +221,32 @@ public class HomeController implements Initializable {
             } else {
                 System.out.println("null");
             }
-           
 
         });
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("SidePanelContent.fxml"));
+            
+            drawer.setSidePane(box);
+
+            
+          
+        } catch (IOException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+         
+            HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(btnHamburger);
+            transition.setRate(-1);
+            btnHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                transition.setRate(transition.getRate() * -1);
+                transition.play();
+
+                if (drawer.isShown()) {
+                    drawer.close();
+                } else {
+                    drawer.open();
+                }
+            });
     }
+
 }

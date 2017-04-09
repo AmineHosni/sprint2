@@ -34,16 +34,19 @@ public class UserConnectionController implements Initializable {
     @FXML
     Label lblWarning;
     Stage stage = new Stage();
+    Integer connect;
+    private Integer idUser;
     @FXML
     public void connecter() {
         UtilisateurUtil utilisateurUtil = new UtilisateurUtil();
-        Boolean connect = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
-        if (connect) {
+         connect = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
+        if (connect!=null) {
             try {
-                Home home = new Home();
+                Home home = new Home(connect);
                 home.start(stage);
                 Stage s = (Stage) btnconnecter.getScene().getWindow();
                 lblWarning.setText("Verifiez vous données");
+                
                 s.close();
             } catch (Exception ex) {
                 Logger.getLogger(UserConnectionController.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,9 +57,11 @@ public class UserConnectionController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+      
     }
     public void close() {
         Stage s = (Stage) btnExit.getScene().getWindow();
         s.close();
     }
+    
 }
