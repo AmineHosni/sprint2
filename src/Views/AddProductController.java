@@ -29,6 +29,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ProduitService;
 import services.SmsSender;
+import ftpServer.*;
+import services.ftpSave;
+
 
 /**
  * FXML Controller class
@@ -36,7 +39,7 @@ import services.SmsSender;
  * @author jamel_pc
  */
 public class AddProductController implements Initializable {
-
+    
     FXMLLoader loader;
 
     private Stage stage;
@@ -58,7 +61,6 @@ public class AddProductController implements Initializable {
     @FXML
     Button btnAjouter;
     private HomeController homeController;
-
     /**
      * Initializes the controller class.
      */
@@ -84,7 +86,8 @@ public class AddProductController implements Initializable {
         produit.setMarque(txtmarque.getText());
         produit.setPrixProduit(Double.parseDouble(txtprixProduit.getText()));
         produit.setQuantiteStock(Integer.parseInt(txtStock.getText()));
-        produit.setImageFile(file);
+        new ftpSave().saveFile(file);
+        produit.setImageName(file.getName());
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
         CategorieUtil categorieUtil = new CategorieUtil();
@@ -109,7 +112,7 @@ public class AddProductController implements Initializable {
         );
         file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            lblPhoto.setText(file.getPath());
+            lblPhoto.setText(file.getName());
             try {
                 String img = file.toURI().toURL().toString();
                 Image image = new Image(img);
@@ -119,6 +122,7 @@ public class AddProductController implements Initializable {
                 Logger.getLogger(AddProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }
 
     @Override

@@ -31,8 +31,7 @@ public class Produit  {
     private String imageName;
     private Date updatedAt;
     private Integer produitCategorie;
-    private File imageFile;
-
+    private String image_url;
     public Produit() {
     }
 
@@ -192,14 +191,16 @@ public class Produit  {
     public void setProduitCategorie(Integer produitCategorie) {
         this.produitCategorie = produitCategorie;
     }
-    
-    public File getImageFile() {
-        return imageFile;
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
     
-    public void setImageFile(File imageFile) {
-        this.imageFile = imageFile;
-    }
+   
     
     @Override
     public int hashCode() {

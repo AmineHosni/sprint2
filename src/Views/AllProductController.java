@@ -5,17 +5,18 @@
  */
 package Views;
 
-import dao.ProduitUtil;
-import entities.Produit;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -25,51 +26,44 @@ import javafx.stage.Stage;
 public class AllProductController implements Initializable {
 
     @FXML
-    TableView<Produit> table = new TableView<Produit>();
+    private TableView<?> table;
     @FXML
-    TableColumn<Produit, Float> Prix;
+    private TableColumn<?, ?> Name;
     @FXML
-    TableColumn<Produit, Float> Description;
+    private TableColumn<?, ?> Marque;
     @FXML
-    TableColumn<Produit, String> Name;
+    private TableColumn<?, ?> Prix;
     @FXML
-    TableColumn<Produit, String> Marque;
+    private TableColumn<?, ?> Etat;
     @FXML
-    TableColumn<Produit, String> Etat;
+    private TableColumn<?, ?> Stock;
     @FXML
-    TableColumn<Produit, String> Stock;
-    ProduitUtil produitUtil = new ProduitUtil();
-    private Stage stage;
-    private HomeController homeController;
+    private TableColumn<?, ?> Description;
+    @FXML
+    private Label lblSearch;
+    @FXML
+    private Label lblMaxPrix;
+    @FXML
+    private Label lblMinPrix;
+    @FXML
+    private JFXSlider prixMinSlider;
+    @FXML
+    private JFXSlider prixMaxSlider;
+    @FXML
+    private JFXComboBox<?> cmbCategorie;
+    @FXML
+    private JFXTextField txtSearch;
+    @FXML
+    private ImageView imgView;
+    @FXML
+    private Button btnNextPhoto;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
-        tableUpdate();
-        
-    }   
-    public void tableUpdate() {
-        ObservableList<Produit> listProduit = produitUtil.afficher();
-        Prix.setCellValueFactory(new PropertyValueFactory<>("prixProduit"));
-        Name.setCellValueFactory(new PropertyValueFactory<>("libelle"));
-        Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
-        Etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-        Stock.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
-        Description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        table.setItems(listProduit);
-        table.setTableMenuButtonVisible(true);
-        table.refresh();
-    }
-
-     void setStage(Stage primaryStage) {
-        this.stage = primaryStage;
-
-    }
-
-      void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
-    }
-  
+        // TODO
+    }    
+    
 }

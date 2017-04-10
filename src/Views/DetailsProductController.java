@@ -13,6 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import dao.ProduitUtil;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 /**
@@ -45,7 +49,15 @@ public class DetailsProductController implements Initializable {
         lblPrix.setText(produit.getPrixProduit().toString());
         lbllibelle.setText(produit.getLibelle());
         lblStock.setText(produit.getQuantiteStock().toString());
-        imgView.setImage(new Image(produitUtil.returnImage(produit.getId())));
+        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(produit.getId()));
+        String img;
+        try {
+            img = file.toURI().toURL().toString();
+            Image image = new Image(img);
+              imgView.setImage(image);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

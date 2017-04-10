@@ -26,7 +26,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import services.*;
 import dao.CategorieUtil;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
@@ -83,9 +85,19 @@ public class HomeController implements Initializable {
      *
      */
     public void imageDisplay() {
-        InputStream binaryStream = produitUtil.returnImage(table.getSelectionModel().getSelectedItem().getId());
-        Image image = new Image(binaryStream);
-        imgView.setImage(image);
+                
+        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(table.getSelectionModel().getSelectedItem().getId()));
+        String img;
+        try {
+            img = file.toURI().toURL().toString();
+            Image image = new Image(img);
+              imgView.setImage(image);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+      
     }
 
     public void Mousepress() {

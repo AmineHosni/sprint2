@@ -6,8 +6,6 @@
 package dao;
 
 import entities.Produit;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -30,25 +28,25 @@ public class ProduitUtil extends UtilInterface {
         Produit produit = (Produit) p;
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
-                + "Photo,marque,etat,prixProduit,"
+                + "image_name,marque,etat,prixProduit,"
                 + "quantiteStock,created_date,duree) values (?, ?, ?,?,?,?,?,?"
                 + ",?)";
-        FileInputStream fis;
+        
         PreparedStatement ps;
         try {
-            fis = new FileInputStream(produit.getImageFile());
             ps = conn.prepareStatement(INSERT_PRODUIT);
             ps.setString(1, produit.getLibelle());
             ps.setString(2, produit.getDescription());
-            ps.setBinaryStream(3, fis, (int) produit.getImageFile().length());
+            ps.setString(3, produit.getImageName());
             ps.setString(4, produit.getMarque());
             ps.setString(5, produit.getEtat());
             ps.setDouble(6, produit.getPrixProduit());
             ps.setInt(7, produit.getQuantiteStock());
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
+            System.out.println(ps);
             ps.executeUpdate();
-        } catch (SQLException | FileNotFoundException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex);
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -134,15 +132,14 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
-    public InputStream returnImage(int i) {
-        InputStream image = null;
+    public String returnImage(int i) {
+        String image = null;
         try {
-            String req3 = "select `Photo` from produit where `id`= " + i;
-
+            String req3 = "select `image_name` from produit where `id`= " + i;
             ResultSet res = statement.executeQuery(req3);
-
             while (res.next()) {
-                image = res.getBinaryStream("Photo");
+                image = res.getString("image_name");
+                
 
             }
         } catch (SQLException ex) {
@@ -168,11 +165,7 @@ public class ProduitUtil extends UtilInterface {
             produit.setDuree(res.getInt("duree"));
             produit.setApprouver(res.getString("approuver"));
             produit.setSeller(res.getInt("seller"));
-            if (produit.getImageFile() == null) {
-                System.out.println("null");
-            } else {
-                System.out.println("not null");
-            }
+            
             produit.setUpdatedAt(res.getDate("updated_at"));
 
         } catch (SQLException ex) {
@@ -314,6 +307,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setUpdatedAt(searchResultSet.getDate("updated_at"));
                 Blob blob = searchResultSet.getBlob("Photo");
                 InputStream is = blob.getBinaryStream();
+                
                 products.add(produit);
 
             }
@@ -402,8 +396,7 @@ public ObservableList<Produit> afficher(Integer IdUser) {
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
 
-                Blob blob = res.getBlob("Photo");
-                InputStream is = blob.getBinaryStream();
+              
 
                 products.add(produit);
 

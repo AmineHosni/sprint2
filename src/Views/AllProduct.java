@@ -25,9 +25,7 @@ public class AllProduct extends Application {
         Scene scene = new Scene(root);
         primaryStage.setTitle("Ajouter Produit");
         primaryStage.setScene(scene);
-          AllProductController allProductController = loader.getController();
-        allProductController.setStage(primaryStage);
-        
+         
         primaryStage.show();
     }
     public static void main(String[] args) {
