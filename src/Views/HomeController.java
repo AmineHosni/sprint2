@@ -9,7 +9,6 @@ import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dao.ProduitUtil;
 import entities.Produit;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,6 +28,7 @@ import dao.CategorieUtil;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.stream.Stream;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 
@@ -77,6 +77,7 @@ public class HomeController implements Initializable {
     Produit produit = new Produit();
     ProduitUtil produitUtil = new ProduitUtil();
     private Stage stage;
+        ProduitService produitService = new ProduitService();
 
     /**
      * Initializes the controller class.
@@ -84,7 +85,7 @@ public class HomeController implements Initializable {
      *
      *
      */
-    public void imageDisplay() {
+    public void imageDisplay(ImageView imgView,TableView<Produit> table) {
                 
         File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(table.getSelectionModel().getSelectedItem().getId()));
         String img;
@@ -100,24 +101,34 @@ public class HomeController implements Initializable {
       
     }
 
-    public void Mousepress() {
+    public void Mousepress(TableView<Produit> table ,ImageView imgView) {
         table.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (table.getSelectionModel().getSelectedItem() == null) {
                     return;
                 }
-                imageDisplay();
+                imageDisplay(imgView,table);
+                if (txtprixProduit==null) {
+                    
+                }else {
                 txtprixProduit.setText(table.getSelectionModel().getSelectedItem().getPrixProduit().toString());
                 txtlibelle.setText(table.getSelectionModel().getSelectedItem().getLibelle());
                 txtmarque.setText(table.getSelectionModel().getSelectedItem().getMarque());
                 txtStock.setText(table.getSelectionModel().getSelectedItem().getQuantiteStock().toString());
                 txtdescription.setText(table.getSelectionModel().getSelectedItem().getDescription());
             }
+            }
         });
     }
-public void tableUpdate() {
+public void tableUpdate(TableView<Produit> table,
+            TableColumn<Produit, String> Stock,TableColumn<Produit, String> Etat
+        ,TableColumn<Produit, String> Marque,TableColumn<Produit, String> Name           
+        ,    TableColumn<Produit, Float> Description ,
+        TableColumn<Produit, Float>Prix   
+) {
         ObservableList<Produit> listProduit = produitUtil.afficher();
+        
         Prix.setCellValueFactory(new PropertyValueFactory<>("prixProduit"));
         Name.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -141,8 +152,12 @@ public void tableUpdate() {
         table.refresh();
     }
 
-    public void tableAfterSearch(ObservableList listProduit) {
-
+    public void tableAfterSearch(TableView<Produit> table,
+            TableColumn<Produit, String> Stock,TableColumn<Produit, String> Etat
+        ,TableColumn<Produit, String> Marque,TableColumn<Produit, String> Name           
+        ,    TableColumn<Produit, Float> Description ,
+        TableColumn<Produit, Float>Prix,ObservableList listProduit) {
+        
         Prix.setCellValueFactory(new PropertyValueFactory<>("prixProduit"));
         Name.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -167,19 +182,43 @@ public void tableUpdate() {
         produitUtil.supprimerObject(i);
         tableUpdate(idUser);
     }
+    public void search(JFXTextField txtSearch,JFXComboBox cmbCategorie,
+            JFXSlider prixMaxSlider ,JFXSlider prixMinSlider){
+        
+       
+}
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lblUser.setText("Jamel Mustapha");
-        ProduitService produitService = new ProduitService();
         CategorieUtil categorieUtil = new CategorieUtil();
         lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
         lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
         prixMaxSlider.setMax(produitService.maxPrice());
-        prixMinSlider.setValue(0);
+        prixMinSlider.setMax(produitService.maxPrice());
         tableUpdate(idUser);
-        Mousepress();
+        Mousepress(table,imgView);
+     
+          
+        txtSearch.setOnKeyReleased(e -> {
 
+            tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitService.SearchByName(txtSearch.getText()));
+        });
+        cmbCategorie.setOnAction(e -> {
+            tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitService.SearchByCategorie(cmbCategorie.getValue().toString()));
+
+        });
+
+        prixMaxSlider.setOnMouseClicked(e -> {
+            lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
+            prixMinSlider.setMax(prixMaxSlider.getValue());
+            tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
+        });
+
+        prixMinSlider.setOnMouseClicked(e -> {
+            lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
+            tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
+        });
         cmbCategorie.setItems(categorieUtil.listerCategorie());
         btnModifier.setOnMouseClicked(e -> {
             if (table.getSelectionModel().getSelectedItem() == null) {
@@ -196,6 +235,7 @@ public void tableUpdate() {
             tableUpdate(idUser);
 
         });
+         
         btnAjouter.setOnMouseClicked(e -> {
 
             AddProduct addProduct = new AddProduct(this);
@@ -206,28 +246,8 @@ public void tableUpdate() {
                 Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-//multi search mezel
-        txtSearch.setOnKeyReleased(e -> {
 
-            tableAfterSearch(produitService.SearchByName(txtSearch.getText()));
-        });
-        cmbCategorie.setOnAction(e -> {
-            tableAfterSearch(produitUtil.SearchByCategorie(cmbCategorie.getValue().toString()));
-
-        });
-
-        prixMaxSlider.setOnMouseClicked(e -> {
-            lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
-            prixMinSlider.setMax(prixMaxSlider.getValue());
-            tableAfterSearch(produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
-        });
-
-        prixMinSlider.setOnMouseClicked(e -> {
-            lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
-            prixMinSlider.setMax(prixMaxSlider.getValue());
-            tableAfterSearch(produitService.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
-        });
-
+        
         btnDetails.setOnAction(e -> {
             if (table.getSelectionModel().getSelectedItem().getId() != null) {
                 DetailsProduct detailsProduct = new DetailsProduct(this, table.getSelectionModel().getSelectedItem());
@@ -235,7 +255,6 @@ public void tableUpdate() {
                 try {
                     Stage stage = new Stage();
                     detailsProduct.start(stage);
-                    System.out.println(detailsProduct.produit);
                 } catch (Exception ex) {
                     Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                 }

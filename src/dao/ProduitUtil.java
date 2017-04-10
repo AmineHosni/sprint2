@@ -6,8 +6,6 @@
 package dao;
 
 import entities.Produit;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +27,7 @@ public class ProduitUtil extends UtilInterface {
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
                 + "image_name,marque,etat,prixProduit,"
-                + "quantiteStock,created_date,duree) values (?, ?, ?,?,?,?,?,?"
+                + "quantiteStock,created_date,duree,produitCategorie) values (?,?, ?, ?,?,?,?,?,?"
                 + ",?)";
         
         PreparedStatement ps;
@@ -44,6 +42,8 @@ public class ProduitUtil extends UtilInterface {
             ps.setInt(7, produit.getQuantiteStock());
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
+            ps.setInt(10, produit.getProduitCategorie());
+
             System.out.println(ps);
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -120,8 +120,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
 
-                Blob blob = res.getBlob("Photo");
-                InputStream is = blob.getBinaryStream();
+                
 
                 products.add(produit);
 
@@ -257,8 +256,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(resultSet.getString("approuver"));
                 produit.setSeller(resultSet.getInt("seller"));
                 produit.setUpdatedAt(resultSet.getDate("updated_at"));
-                Blob blob = resultSet.getBlob("Photo");
-                InputStream is = blob.getBinaryStream();
+                
                 products.add(produit);
 
             }
@@ -305,8 +303,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(searchResultSet.getString("approuver"));
                 produit.setSeller(searchResultSet.getInt("seller"));
                 produit.setUpdatedAt(searchResultSet.getDate("updated_at"));
-                Blob blob = searchResultSet.getBlob("Photo");
-                InputStream is = blob.getBinaryStream();
+              
                 
                 products.add(produit);
 
@@ -341,8 +338,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(resultSet.getString("approuver"));
                 produit.setSeller(resultSet.getInt("seller"));
                 produit.setUpdatedAt(resultSet.getDate("updated_at"));
-                Blob blob = resultSet.getBlob("Photo");
-                InputStream is = blob.getBinaryStream();
+               
                 products.add(produit);
 
             }

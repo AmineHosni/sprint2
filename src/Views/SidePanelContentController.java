@@ -31,7 +31,9 @@ public class SidePanelContentController implements Initializable {
         btnTousLesProduit.setOnMouseClicked(e -> {
 
             AllProduct allProduct = new AllProduct();
+            
             Stage stage = new Stage();
+            stage = (Stage)btnTousLesProduit.getScene().getWindow();
             try {
                 allProduct.start(stage);
             } catch (Exception ex) {

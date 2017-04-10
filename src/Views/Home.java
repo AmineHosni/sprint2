@@ -22,6 +22,10 @@ public class Home extends Application {
      public Home(Integer idUser) {
         this.idUser= idUser;
     }
+
+    public Home() {
+    }
+     
     
     @Override
     public void start(Stage primaryStage) throws Exception {

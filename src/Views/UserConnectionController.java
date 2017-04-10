@@ -42,8 +42,8 @@ public class UserConnectionController implements Initializable {
          connect = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
         if (connect!=null) {
             try {
-                Home home = new Home(connect);
-                home.start(stage);
+                AllProduct allProduct = new AllProduct();
+                allProduct.start(stage);
                 Stage s = (Stage) btnconnecter.getScene().getWindow();
                 lblWarning.setText("Verifiez vous données");
                 

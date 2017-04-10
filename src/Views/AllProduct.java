@@ -23,7 +23,7 @@ public class AllProduct extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AllProduct.fxml"));
         Parent root = (Parent) loader.load();
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Ajouter Produit");
+        primaryStage.setTitle("Home");
         primaryStage.setScene(scene);
          
         primaryStage.show();

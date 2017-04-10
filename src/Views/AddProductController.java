@@ -29,7 +29,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ProduitService;
 import services.SmsSender;
-import ftpServer.*;
 import services.ftpSave;
 
 
@@ -91,6 +90,7 @@ public class AddProductController implements Initializable {
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
         CategorieUtil categorieUtil = new CategorieUtil();
+        System.out.println(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
 
@@ -101,7 +101,7 @@ public class AddProductController implements Initializable {
         stage = (Stage) btnAjouter.getScene().getWindow();
 
         stage.close();
-        homeController.tableUpdate();
+      //  homeController.tableUpdate();
     }
 
     @FXML

@@ -9,9 +9,7 @@ package services;
 import dao.ProduitUtil;
 import entities.Produit;
 import java.util.List;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import dao.UtilInterface;
 /**
  *
  * @author jamel_pc
@@ -49,5 +47,9 @@ public class ProduitService {
      return produitUtil.maxPrice();
      
      }
+
+    public ObservableList SearchByCategorie(String categorie) {
+        return produitUtil.SearchByCategorie(categorie);
+    }
     
 }
