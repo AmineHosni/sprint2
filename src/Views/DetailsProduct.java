@@ -12,17 +12,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-
 /**
  *
  * @author jamel_pc
  */
-public class DisplayProduct extends Application {
+public class DetailsProduct extends Application {
     
     HomeController homeController;
     public static Produit produit = new Produit();
 
-    public DisplayProduct(HomeController homeController, Produit produit) {
+    public DetailsProduct(HomeController homeController, Produit produit) {
         this.produit = produit;
         this.homeController = homeController;
         
@@ -31,11 +30,11 @@ public class DisplayProduct extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DisplayProduct.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailsProduct.fxml"));
         Parent root = (Parent) loader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Display Product");
-        DisplayProductController displaDisplayProduct = loader.getController();
+        DetailsProductController displaDisplayProduct = loader.getController();
         displaDisplayProduct.setProduct(produit);
         primaryStage.setScene(scene);        
         primaryStage.show();

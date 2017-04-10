@@ -17,6 +17,6 @@
          </image>
       </ImageView>
       <JFXButton fx:id="btnTousLesProduit" buttonType="RAISED" prefHeight="51.0" prefWidth="129.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Tous Les Produit" />
-      <JFXButton fx:id="2" buttonType="RAISED" prefHeight="51.0" prefWidth="129.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Historique" />
+      <JFXButton fx:id="btnHistorique" buttonType="RAISED" prefHeight="51.0" prefWidth="129.0" ripplerFill="#fc0000" style="-fx-background-color: #f1f1f1;" text="Historique" />
    </children>
 </VBox>

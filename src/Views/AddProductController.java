@@ -9,9 +9,7 @@ import dao.CategorieUtil;
 import entities.Produit;
 import java.io.File;
 import java.net.MalformedURLException;
-
 import java.net.URL;
-
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,8 +92,8 @@ public class AddProductController implements Initializable {
         produitService.ajouterProduit(produit);
 
         SendMail sendMail = new SendMail();
-        sendMail.envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + txtlibelle.getText(),
-                "l'ajout du "+txtlibelle.getText());
+//        sendMail.envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + txtlibelle.getText(),
+ //               "l'ajout du "+txtlibelle.getText());
 
         stage = (Stage) btnAjouter.getScene().getWindow();
 

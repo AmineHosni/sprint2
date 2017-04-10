@@ -61,13 +61,13 @@ public class HomeController implements Initializable {
     @FXML
     TableColumn<Produit, String> Stock;
     @FXML
-    JFXButton btnModifier, btnSupprimer, btnAjouter, btnDetails;
+    JFXButton btnModifier, btnSupprimer, btnAjouter, btnDetails,btnLogout;
     @FXML
     TextField txtStock, txtprixProduit, txtquantiteStock, txtmarque, txtlibelle;
     @FXML
     JFXTextField txtSearch;
     @FXML
-    Label lblPhoto, lblDuree, lblEtat, lblMinPrix, lblMaxPrix, lblSearch;
+    Label lblPhoto, lblDuree, lblEtat, lblMinPrix, lblMaxPrix, lblSearch,lblUser;
     @FXML
     TextArea txtdescription;
     @FXML
@@ -104,9 +104,20 @@ public class HomeController implements Initializable {
             }
         });
     }
-
-    public void tableUpdate() {
+public void tableUpdate() {
         ObservableList<Produit> listProduit = produitUtil.afficher();
+        Prix.setCellValueFactory(new PropertyValueFactory<>("prixProduit"));
+        Name.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+        Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
+        Etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        Stock.setCellValueFactory(new PropertyValueFactory<>("quantiteStock"));
+        Description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        table.setItems(listProduit);
+        table.setTableMenuButtonVisible(true);
+        table.refresh();
+    }
+    public void tableUpdate(Integer IdUser) {
+        ObservableList<Produit> listProduit = produitUtil.afficher(IdUser);
         Prix.setCellValueFactory(new PropertyValueFactory<>("prixProduit"));
         Name.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -142,20 +153,19 @@ public class HomeController implements Initializable {
         }
         Integer i = table.getSelectionModel().getSelectedItem().getId();
         produitUtil.supprimerObject(i);
-        tableUpdate();
+        tableUpdate(idUser);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        lblUser.setText("Jamel Mustapha");
         ProduitService produitService = new ProduitService();
         CategorieUtil categorieUtil = new CategorieUtil();
         lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
         lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
         prixMaxSlider.setMax(produitService.maxPrice());
         prixMinSlider.setValue(0);
-
-        tableUpdate();
+        tableUpdate(idUser);
         Mousepress();
 
         cmbCategorie.setItems(categorieUtil.listerCategorie());
@@ -171,7 +181,7 @@ public class HomeController implements Initializable {
             produit.setDescription(txtdescription.getText());
             produit.setId(i);
             produitUtil.modifierObject(produit);
-            tableUpdate();
+            tableUpdate(idUser);
 
         });
         btnAjouter.setOnMouseClicked(e -> {
@@ -208,12 +218,12 @@ public class HomeController implements Initializable {
 
         btnDetails.setOnAction(e -> {
             if (table.getSelectionModel().getSelectedItem().getId() != null) {
-                DisplayProduct displayProduct = new DisplayProduct(this, table.getSelectionModel().getSelectedItem());
+                DetailsProduct detailsProduct = new DetailsProduct(this, table.getSelectionModel().getSelectedItem());
 
                 try {
                     Stage stage = new Stage();
-                    displayProduct.start(stage);
-                    System.out.println(displayProduct.produit);
+                    detailsProduct.start(stage);
+                    System.out.println(detailsProduct.produit);
                 } catch (Exception ex) {
                     Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -246,6 +256,11 @@ public class HomeController implements Initializable {
                 } else {
                     drawer.open();
                 }
+            });
+            btnLogout.setOnAction(e->{
+                Stage stage = (Stage)btnLogout.getScene().getWindow();
+                stage.close();
+                new UserConnection().start(stage);
             });
     }
 

@@ -102,13 +102,13 @@ public class ProduitUtil extends UtilInterface {
         Produit p = new Produit();
         String req3 = "select * from produit ";
         ObservableList<Produit> products = FXCollections.observableArrayList();
-
+        
         try {
 
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
                 Produit produit = new Produit();
-
+               
                 produit.setId(res.getInt("id"));
                 produit.setLibelle(res.getString("libelle"));
                 produit.setDescription(res.getString("description"));
@@ -378,7 +378,41 @@ Double prix= null;
         return prix;
     }
 
+public ObservableList<Produit> afficher(Integer IdUser) {
+        Produit p = new Produit();
+        String req3 = "select * from produit WHERE `seller`="+IdUser;
+        ObservableList<Produit> products = FXCollections.observableArrayList();
+        
+        try {
 
+            ResultSet res = statement.executeQuery(req3);
+            while (res.next()) {
+                Produit produit = new Produit();
+               
+                produit.setId(res.getInt("id"));
+                produit.setLibelle(res.getString("libelle"));
+                produit.setDescription(res.getString("description"));
+                produit.setMarque(res.getString("marque"));
+                produit.setEtat(res.getString("etat"));
+                produit.setPrixProduit(res.getDouble("prixProduit"));
+                produit.setQuantiteStock(res.getInt("quantiteStock"));
+                produit.setCreatedDate(res.getDate("created_date"));
+                produit.setDuree(res.getInt("duree"));
+                produit.setApprouver(res.getString("approuver"));
+                produit.setSeller(res.getInt("seller"));
+                produit.setUpdatedAt(res.getDate("updated_at"));
+
+                Blob blob = res.getBlob("Photo");
+                InputStream is = blob.getBinaryStream();
+
+                products.add(produit);
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
 
 
 }

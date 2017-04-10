@@ -5,9 +5,14 @@
  */
 package Views;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,12 +21,23 @@ import javafx.fxml.Initializable;
  */
 public class SidePanelContentController implements Initializable {
 
+    @FXML
+    JFXButton btnTousLesProduit,btnHistorique;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        btnTousLesProduit.setOnMouseClicked(e -> {
+
+            AllProduct allProduct = new AllProduct();
+            Stage stage = new Stage();
+            try {
+                allProduct.start(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }    
     
 }

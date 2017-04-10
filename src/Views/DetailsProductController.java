@@ -11,7 +11,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import dao.ProduitUtil;
 import javafx.scene.image.Image;
@@ -21,7 +20,7 @@ import javafx.scene.image.ImageView;
  *
  * @author jamel_pc
  */
-public class DisplayProductController implements Initializable {
+public class DetailsProductController implements Initializable {
 
     @FXML
     private Label lbllibelle;
