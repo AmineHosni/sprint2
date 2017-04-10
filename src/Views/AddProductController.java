@@ -28,7 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ProduitService;
-import services.SendMail;
+import services.SmsSender;
 
 /**
  * FXML Controller class
@@ -91,7 +91,7 @@ public class AddProductController implements Initializable {
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
 
-        SendMail sendMail = new SendMail();
+        SmsSender sendMail = new SmsSender();
 //        sendMail.envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + txtlibelle.getText(),
  //               "l'ajout du "+txtlibelle.getText());
 
