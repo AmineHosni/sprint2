@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class SidePanelContentController implements Initializable {
 
     @FXML
-    JFXButton btnTousLesProduit,btnHistorique;
+    JFXButton btnTousLesProduit,btnMonespace;
     /**
      * Initializes the controller class.
      */
@@ -38,6 +38,16 @@ public class SidePanelContentController implements Initializable {
                 allProduct.start(stage);
             } catch (Exception ex) {
                 Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        btnMonespace.setOnAction(e -> {
+
+            Stage stage = (Stage) btnMonespace.getScene().getWindow();
+
+            try {
+                new Home().start(stage);
+            } catch (Exception ex) {
+                Logger.getLogger(AllProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }    

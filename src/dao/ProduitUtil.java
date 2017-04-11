@@ -27,9 +27,9 @@ public class ProduitUtil extends UtilInterface {
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
                 + "image_name,marque,etat,prixProduit,"
-                + "quantiteStock,created_date,duree,produitCategorie,image_name2,image_name3) values (?,?,?,?, ?, ?,?,?,?,?,?"
+                + "quantiteStock,created_date,duree,produitCategorie,image_name2,image_name3,seller) values (?,?,?,?,?, ?, ?,?,?,?,?,?"
                 + ",?)";
-        
+
         PreparedStatement ps;
         try {
             ps = conn.prepareStatement(INSERT_PRODUIT);
@@ -45,6 +45,7 @@ public class ProduitUtil extends UtilInterface {
             ps.setInt(10, produit.getProduitCategorie());
             ps.setString(11, produit.getImageName2());
             ps.setString(12, produit.getImageName3());
+            ps.setInt(13, 9);
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -100,13 +101,13 @@ public class ProduitUtil extends UtilInterface {
         Produit p = new Produit();
         String req3 = "select * from produit ";
         ObservableList<Produit> products = FXCollections.observableArrayList();
-        
+
         try {
 
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
                 Produit produit = new Produit();
-               
+
                 produit.setId(res.getInt("id"));
                 produit.setLibelle(res.getString("libelle"));
                 produit.setDescription(res.getString("description"));
@@ -120,8 +121,6 @@ public class ProduitUtil extends UtilInterface {
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
 
-                
-
                 products.add(produit);
 
             }
@@ -131,14 +130,13 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
-    public String returnImage(int i,String imageUrl) {
+    public String returnImage(int i, String imageUrl) {
         String image = null;
         try {
-            String req3 = "select `"+imageUrl+"` from produit where `id`= " + i;
+            String req3 = "select `" + imageUrl + "` from produit where `id`= " + i;
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
                 image = res.getString(imageUrl);
-                
 
             }
         } catch (SQLException ex) {
@@ -164,7 +162,7 @@ public class ProduitUtil extends UtilInterface {
             produit.setDuree(res.getInt("duree"));
             produit.setApprouver(res.getString("approuver"));
             produit.setSeller(res.getInt("seller"));
-            
+
             produit.setUpdatedAt(res.getDate("updated_at"));
 
         } catch (SQLException ex) {
@@ -256,7 +254,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(resultSet.getString("approuver"));
                 produit.setSeller(resultSet.getInt("seller"));
                 produit.setUpdatedAt(resultSet.getDate("updated_at"));
-                
+
                 products.add(produit);
 
             }
@@ -273,17 +271,18 @@ public class ProduitUtil extends UtilInterface {
         ResultSet CategorieResultSet = null;
         Integer id = 0;
         ObservableList<Produit> products = FXCollections.observableArrayList();
-        
-        String requeteCategorie = "SELECT `id` FROM `categorie` WHERE  `nomCategorie`='"+categorie+"'";
+
+        String requeteCategorie = "SELECT `id` FROM `categorie` WHERE  `nomCategorie`='" + categorie + "'";
         try {
             CategorieResultSet = statement.executeQuery(requeteCategorie);
-            while (CategorieResultSet.next())
-            id = CategorieResultSet.getInt("id");
+            while (CategorieResultSet.next()) {
+                id = CategorieResultSet.getInt("id");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
         String requeteSearch = "SELECT * FROM produit  WHERE `produitCategorie` LIKE '" + id + "'";
-                System.out.println(requeteSearch);
+        System.out.println(requeteSearch);
 
         try {
 
@@ -303,8 +302,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(searchResultSet.getString("approuver"));
                 produit.setSeller(searchResultSet.getInt("seller"));
                 produit.setUpdatedAt(searchResultSet.getDate("updated_at"));
-              
-                
+
                 products.add(produit);
 
             }
@@ -316,10 +314,10 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
-    public ObservableList<Produit> SearchByPrice(Double minPrix,Double maxPrix) {
+    public ObservableList<Produit> SearchByPrice(Double minPrix, Double maxPrix) {
         ObservableList<Produit> products = FXCollections.observableArrayList();
 
-        String requetePriceSearch = "SELECT * FROM `produit` WHERE `prixProduit` BETWEEN "+minPrix +"AND "+maxPrix;
+        String requetePriceSearch = "SELECT * FROM `produit` WHERE `prixProduit` BETWEEN " + minPrix + "AND " + maxPrix;
         try {
 
             ResultSet resultSet = statement.executeQuery(requetePriceSearch);
@@ -338,7 +336,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(resultSet.getString("approuver"));
                 produit.setSeller(resultSet.getInt("seller"));
                 produit.setUpdatedAt(resultSet.getDate("updated_at"));
-               
+
                 products.add(produit);
 
             }
@@ -349,16 +347,17 @@ public class ProduitUtil extends UtilInterface {
 
         return products;
     }
-public Double maxPrice() {
-Double prix= null;
+
+    public Double maxPrice() {
+        Double prix = null;
         String requeteMaxPrice = "SELECT MAX(`prixProduit`) FROM produit";
         try {
 
             ResultSet resultSet = statement.executeQuery(requeteMaxPrice);
 
             while (resultSet.next()) {
-           
-            prix =    resultSet.getDouble("MAX(`prixProduit`)");
+
+                prix = resultSet.getDouble("MAX(`prixProduit`)");
             }
 
         } catch (SQLException ex) {
@@ -368,17 +367,18 @@ Double prix= null;
         return prix;
     }
 
-public ObservableList<Produit> afficher(Integer IdUser) {
+    public ObservableList<Produit> afficher(Integer IdUser) {
         Produit p = new Produit();
-        String req3 = "select * from produit WHERE `seller`="+IdUser;
+        String req3 = "select * from produit WHERE `seller`=" + IdUser;
+        System.out.println(req3);
         ObservableList<Produit> products = FXCollections.observableArrayList();
-        
+
         try {
 
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
                 Produit produit = new Produit();
-               
+
                 produit.setId(res.getInt("id"));
                 produit.setLibelle(res.getString("libelle"));
                 produit.setDescription(res.getString("description"));
@@ -392,8 +392,6 @@ public ObservableList<Produit> afficher(Integer IdUser) {
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
 
-              
-
                 products.add(produit);
 
             }
@@ -403,8 +401,30 @@ public ObservableList<Produit> afficher(Integer IdUser) {
         return products;
     }
 
-
+    public Double Nouveau() {
+        Double Nouveau = null;
+        String req = "SELECT COUNT( `etat`) FROM produit WHERE `etat`=\"nouveau\";";
+        try {
+            ResultSet res = statement.executeQuery(req);
+            while (res.next()) {
+                Nouveau = res.getDouble("COUNT( `etat`)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Nouveau;
+    }
+    public Double Occasion() {
+        Double Occasion = null;
+        String req = "SELECT COUNT( `etat`) FROM produit WHERE `etat`=\"occasion\";";
+        try {
+            ResultSet res = statement.executeQuery(req);
+            while (res.next()) {
+                Occasion = res.getDouble("COUNT( `etat`)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Occasion;
+    }
 }
-
-
-

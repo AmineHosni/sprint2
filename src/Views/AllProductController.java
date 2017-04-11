@@ -5,6 +5,7 @@
  */
 package Views;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -30,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ProduitService;
+import services.PieChartSample;
 
 /**
  * FXML Controller class
@@ -40,7 +42,7 @@ public class AllProductController implements Initializable {
 
     @FXML
     private TableView<Produit> table;
-   @FXML
+    @FXML
     TableColumn<Produit, Float> Prix;
     @FXML
     TableColumn<Produit, Float> Description;
@@ -53,7 +55,7 @@ public class AllProductController implements Initializable {
     @FXML
     TableColumn<Produit, String> Stock;
     @FXML
-    private Label lblSearch;
+    private Label lblSearch, lblUser;
     @FXML
     private Label lblMaxPrix;
     @FXML
@@ -69,78 +71,103 @@ public class AllProductController implements Initializable {
     @FXML
     private ImageView imgView;
     @FXML
-    private Button btnNextPhoto,btnMonespace;
+    private Button btnNextPhoto;
     @FXML
-            private JFXHamburger btnHamburger;
-        private JFXDrawer drawer;
+    private JFXHamburger btnHamburger;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    JFXButton btnLogout;
+    @FXML
+    JFXButton btnStatistique;        
 
     ProduitService produitservice = new ProduitService();
     CategorieUtil categorieUtil = new CategorieUtil();
-         Integer i=1 ;
-    
+    Integer i = 1;
+
     @FXML
-    public void NextPhoto(){
-       
-           
-            if (i==1) {
+    public void NextPhoto() {
+
+        if (table.getSelectionModel().getSelectedItem()==null) {
+            return;
+        }
+        if (i == 1) {
             new HomeController().imageDisplay(imgView, table, "image_name2");
-                i++;
-            }else if (i==2) {
-                            new HomeController().imageDisplay(imgView, table, "image_name3");
-                            i++;
-            }else if (i==3) {
-                                        new HomeController().imageDisplay(imgView, table, "image_name");
- i=1;
+            i++;
+        } else if (i == 2) {
+            new HomeController().imageDisplay(imgView, table, "image_name3");
+            i++;
+        } else if (i == 3) {
+            new HomeController().imageDisplay(imgView, table, "image_name");
+            i = 1;
         }
     }
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        lblUser.setText("Jamel Mustapha");
+
         lblMaxPrix.setText(String.valueOf(produitservice.maxPrice()));
         lblMinPrix.setText(String.valueOf(produitservice.maxPrice()));
         System.out.println(produitservice.maxPrice());
         prixMaxSlider.setMax(produitservice.maxPrice());
         prixMinSlider.setMax(produitservice.maxPrice());
         cmbCategorie.setItems(categorieUtil.listerCategorie());
-        new HomeController().tableUpdate(table,Stock,Etat,Marque,Name,Description,Prix);
-        new HomeController().Mousepress(table,imgView);
-        btnMonespace.setOnAction(e->{
-          Stage stage = (Stage)btnMonespace.getScene().getWindow();
+        new HomeController().tableUpdate(table, Stock, Etat, Marque, Name, Description, Prix);
+        new HomeController().Mousepress(table, imgView);
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("SidePanelContent.fxml"));
+            drawer.setSidePane(box);
+        } catch (IOException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-            try {
-                new Home().start(stage);
-            } catch (Exception ex) {
-                Logger.getLogger(AllProductController.class.getName()).log(Level.SEVERE, null, ex);
+        HamburgerBackArrowBasicTransition transition = new HamburgerBackArrowBasicTransition(btnHamburger);
+        transition.setRate(-1);
+        btnHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            transition.setRate(transition.getRate() * -1);
+            transition.play();
+
+            if (drawer.isShown()) {
+                drawer.close();
+            } else {
+                drawer.open();
             }
         });
-      
+
         txtSearch.setOnKeyReleased(e -> {
 
-            new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByName(txtSearch.getText()));
+            new HomeController().tableAfterSearch(table, Stock, Etat, Marque, Name, Description, Prix, produitservice.SearchByName(txtSearch.getText()));
         });
         cmbCategorie.setOnAction(e -> {
-            new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByCategorie(cmbCategorie.getValue().toString()));
+            new HomeController().tableAfterSearch(table, Stock, Etat, Marque, Name, Description, Prix, produitservice.SearchByCategorie(cmbCategorie.getValue().toString()));
 
         });
 
         prixMaxSlider.setOnMouseClicked(e -> {
             lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
             prixMinSlider.setMax(prixMaxSlider.getValue());
-            new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
+            new HomeController().tableAfterSearch(table, Stock, Etat, Marque, Name, Description, Prix, produitservice.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
         });
 
         prixMinSlider.setOnMouseClicked(e -> {
             lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
-            new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
+            new HomeController().tableAfterSearch(table, Stock, Etat, Marque, Name, Description, Prix, produitservice.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
         });
-        
-       
+        btnLogout.setOnAction(e -> {
+            Stage stage = (Stage) btnLogout.getScene().getWindow();
+            stage.close();
+            new UserConnection().start(stage);
+        });
+        btnStatistique.setOnAction(e->{
             
-         
-    }    
-    
+            Stage stage = new Stage();
+            System.out.println(new ProduitService().Occasion());
+              new PieChartSample().inserData(stage, produitservice.Nouveau(), produitservice.Occasion());
+        });
+    }
+
 }

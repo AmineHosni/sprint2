@@ -34,7 +34,7 @@ public class Home extends Application {
         Scene scene = new Scene(root);
         HomeController homeController= loader.getController();
         homeController.idUser=idUser;
-        primaryStage.setTitle("Home");
+        primaryStage.setTitle("Mon espace");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -32,8 +32,7 @@ public class DetailsProductController implements Initializable {
     private Label lblPrix;
     @FXML
     private Label lblStock;
-    @FXML
-    private JFXButton btnAcheter;
+   
     @FXML
     private JFXButton btnStatistique;
     @FXML
@@ -59,6 +58,7 @@ public class DetailsProductController implements Initializable {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       

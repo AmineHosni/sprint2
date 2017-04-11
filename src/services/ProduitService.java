@@ -47,6 +47,16 @@ public class ProduitService {
      return produitUtil.maxPrice();
      
      }
+     public Double Occasion() {
+     
+     return produitUtil.Occasion();
+     
+     }
+     public Double Nouveau() {
+     
+     return produitUtil.Nouveau();
+     
+     }
 
     public ObservableList SearchByCategorie(String categorie) {
         return produitUtil.SearchByCategorie(categorie);

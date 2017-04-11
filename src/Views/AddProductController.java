@@ -28,8 +28,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import services.ProduitService;
-import services.SendMail;
-import services.SmsSender;
 import services.ftpSave;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -144,12 +142,13 @@ public class AddProductController implements Initializable {
         produit.setImageName3(file3.getName());
         produit.setDuree(Integer.valueOf(chDuree.getValue().toString()));
         produit.setEtat(chEtat.getValue().toString());
+        produit.setSeller(9);
         CategorieUtil categorieUtil = new CategorieUtil();
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
         TrayNotification tray = new TrayNotification("succées d'ajout", "CHECK YOUR USERNAME OR PASSWORD",NotificationType.SUCCESS);
         tray.showAndDismiss(Duration.seconds(2));
-
+        homeController.tableUpdate(9);
 
 
 

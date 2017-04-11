@@ -168,6 +168,7 @@ public void tableUpdate(TableView<Produit> table,
         table.setTableMenuButtonVisible(true);
         table.refresh();
     }
+  
 
     void setStage(Stage primaryStage) {
         this.stage = primaryStage;
@@ -180,13 +181,9 @@ public void tableUpdate(TableView<Produit> table,
         }
         Integer i = table.getSelectionModel().getSelectedItem().getId();
         produitUtil.supprimerObject(i);
-        tableUpdate(idUser);
+        this.tableUpdate(9);
     }
-    public void search(JFXTextField txtSearch,JFXComboBox cmbCategorie,
-            JFXSlider prixMaxSlider ,JFXSlider prixMinSlider){
-        
-       
-}
+  
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -198,10 +195,12 @@ public void tableUpdate(TableView<Produit> table,
         prixMinSlider.setMax(produitService.maxPrice());
         tableUpdate(idUser);
         Mousepress(table,imgView);
-     
+        
           
         txtSearch.setOnKeyReleased(e -> {
-
+            if (txtSearch.getText().equals("")) {
+                this.tableUpdate(9);
+            }else
             tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitService.SearchByName(txtSearch.getText()));
         });
         cmbCategorie.setOnAction(e -> {
@@ -232,7 +231,7 @@ public void tableUpdate(TableView<Produit> table,
             produit.setDescription(txtdescription.getText());
             produit.setId(i);
             produitUtil.modifierObject(produit);
-            tableUpdate(idUser);
+            this.tableUpdate(9);
 
         });
          
@@ -293,6 +292,9 @@ public void tableUpdate(TableView<Produit> table,
                 stage.close();
                 new UserConnection().start(stage);
             });
+            
     }
+
+   
 
 }
