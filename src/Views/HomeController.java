@@ -85,9 +85,9 @@ public class HomeController implements Initializable {
      *
      *
      */
-    public void imageDisplay(ImageView imgView,TableView<Produit> table) {
+    public void imageDisplay(ImageView imgView,TableView<Produit> table,String imageUrl) {
                 
-        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(table.getSelectionModel().getSelectedItem().getId()));
+        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(table.getSelectionModel().getSelectedItem().getId(),imageUrl));
         String img;
         try {
             img = file.toURI().toURL().toString();
@@ -108,7 +108,7 @@ public class HomeController implements Initializable {
                 if (table.getSelectionModel().getSelectedItem() == null) {
                     return;
                 }
-                imageDisplay(imgView,table);
+                imageDisplay(imgView,table,"image_name");
                 if (txtprixProduit==null) {
                     
                 }else {

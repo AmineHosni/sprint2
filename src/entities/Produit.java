@@ -28,7 +28,7 @@ public class Produit  {
     private Integer duree;
     private String approuver;
     private Integer seller;
-    private String imageName;
+    private String imageName,imageName2,imageName3;
     private Date updatedAt;
     private Integer produitCategorie;
     private String image_url;
@@ -176,6 +176,22 @@ public class Produit  {
         this.imageName = imageName;
     }
 
+    public String getImageName2() {
+        return imageName2;
+    }
+
+    public void setImageName2(String imageName2) {
+        this.imageName2 = imageName2;
+    }
+
+    public String getImageName3() {
+        return imageName3;
+    }
+
+    public void setImageName3(String imageName3) {
+        this.imageName3 = imageName3;
+    }
+    
     public Date getUpdatedAt() {
         return updatedAt;
     }

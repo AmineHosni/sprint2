@@ -6,21 +6,28 @@
 package Views;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import dao.CategorieUtil;
 import entities.Produit;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ProduitService;
 
@@ -63,16 +70,39 @@ public class AllProductController implements Initializable {
     private ImageView imgView;
     @FXML
     private Button btnNextPhoto,btnMonespace;
+    @FXML
+            private JFXHamburger btnHamburger;
+        private JFXDrawer drawer;
+
     ProduitService produitservice = new ProduitService();
     CategorieUtil categorieUtil = new CategorieUtil();
-        
+         Integer i=1 ;
+    
+    @FXML
+    public void NextPhoto(){
+       
+           
+            if (i==1) {
+            new HomeController().imageDisplay(imgView, table, "image_name2");
+                i++;
+            }else if (i==2) {
+                            new HomeController().imageDisplay(imgView, table, "image_name3");
+                            i++;
+            }else if (i==3) {
+                                        new HomeController().imageDisplay(imgView, table, "image_name");
+ i=1;
+        }
+    }
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lblMaxPrix.setText(String.valueOf(prixMaxSlider.getValue()));
-        lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
+        lblMaxPrix.setText(String.valueOf(produitservice.maxPrice()));
+        lblMinPrix.setText(String.valueOf(produitservice.maxPrice()));
+        System.out.println(produitservice.maxPrice());
         prixMaxSlider.setMax(produitservice.maxPrice());
         prixMinSlider.setMax(produitservice.maxPrice());
         cmbCategorie.setItems(categorieUtil.listerCategorie());
@@ -87,7 +117,7 @@ public class AllProductController implements Initializable {
                 Logger.getLogger(AllProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+      
         txtSearch.setOnKeyReleased(e -> {
 
             new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByName(txtSearch.getText()));
@@ -107,7 +137,10 @@ public class AllProductController implements Initializable {
             lblMinPrix.setText(String.valueOf(prixMinSlider.getValue()));
             new HomeController().tableAfterSearch(table,Stock,Etat,Marque,Name,Description,Prix,produitservice.SearchByPrice(prixMinSlider.getValue(), prixMaxSlider.getValue()));
         });
-    
+        
+       
+            
+         
     }    
     
 }

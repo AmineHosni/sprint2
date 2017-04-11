@@ -27,7 +27,7 @@ public class ProduitUtil extends UtilInterface {
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
                 + "image_name,marque,etat,prixProduit,"
-                + "quantiteStock,created_date,duree,produitCategorie) values (?,?, ?, ?,?,?,?,?,?"
+                + "quantiteStock,created_date,duree,produitCategorie,image_name2,image_name3) values (?,?,?,?, ?, ?,?,?,?,?,?"
                 + ",?)";
         
         PreparedStatement ps;
@@ -43,8 +43,8 @@ public class ProduitUtil extends UtilInterface {
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
             ps.setInt(10, produit.getProduitCategorie());
-
-            System.out.println(ps);
+            ps.setString(11, produit.getImageName2());
+            ps.setString(12, produit.getImageName3());
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -131,13 +131,13 @@ public class ProduitUtil extends UtilInterface {
         return products;
     }
 
-    public String returnImage(int i) {
+    public String returnImage(int i,String imageUrl) {
         String image = null;
         try {
-            String req3 = "select `image_name` from produit where `id`= " + i;
+            String req3 = "select `"+imageUrl+"` from produit where `id`= " + i;
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
-                image = res.getString("image_name");
+                image = res.getString(imageUrl);
                 
 
             }

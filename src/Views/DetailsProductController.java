@@ -49,7 +49,7 @@ public class DetailsProductController implements Initializable {
         lblPrix.setText(produit.getPrixProduit().toString());
         lbllibelle.setText(produit.getLibelle());
         lblStock.setText(produit.getQuantiteStock().toString());
-        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(produit.getId()));
+        File file = new File("C:\\Users\\jamel_pc\\Desktop\\SprintJava\\"+produitUtil.returnImage(produit.getId(),"image_name"));
         String img;
         try {
             img = file.toURI().toURL().toString();
