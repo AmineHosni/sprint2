@@ -26,10 +26,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import services.ProduitService;
 import services.SendMail;
 import services.SmsSender;
 import services.ftpSave;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -73,18 +76,60 @@ public class AddProductController implements Initializable {
     private boolean AjouterButtonAction(File file1, File file2, File file3) {
 
         Produit produit = new Produit();
-        if (txtlibelle.getText().equals("") || txtdescription.getText().equals("")
-                || txtmarque.getText().equals("")
-                || txtprixProduit.getText().equals("") || txtStock.getText().equals("") || (file1 == null)
-                || (file2 == null) || (file3 == null)
-                || chDuree.getValue() == null || chEtat.getValue() == null) {
-
-            System.out.println("file1" + file1.getAbsolutePath());
-            System.out.println("file2" + file2.getAbsolutePath());
-            System.out.println("file3" + file3.getAbsolutePath());
-
-            return false;
+        if (txtlibelle.getText().equals("")) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Username error", "CHECK YOUR USERNAME ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (txtdescription.getText().equals("")) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Description error", "CHECK YOUR Description ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (txtmarque.getText().equals("")) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Marque error", "CHECK YOUR MARQUE ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (txtprixProduit.getText().equals("")) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Price error", "CHECK YOUR PRICE , \n it need to be 00.00 ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (txtStock.getText().equals("")) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Stock error", "CHECK YOUR Stock \n must be a number  ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if ((file1 == null) || (file2 == null) || (file3== null)) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Files error", "update 3 images with extension png and jpg  ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (chDuree.getValue()== null) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Duration error", "Chose duree ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
+        } else if (chEtat.getValue()== null) {
+            
+            TrayNotification tray = 
+                    new TrayNotification("Etat error", "Chose etat ", NotificationType.ERROR);
+            tray.showAndDismiss(Duration.seconds(2));
+            
         }
+    
+
+                 
+                 
+                
         produit.setLibelle(txtlibelle.getText());
         produit.setDescription(txtdescription.getText());
         produit.setMarque(txtmarque.getText());
@@ -102,22 +147,27 @@ public class AddProductController implements Initializable {
         CategorieUtil categorieUtil = new CategorieUtil();
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
-//        new SmsSender("votre produit "+produit.getLibelle() +"\n prix :"+txtprixProduit.getText() +" dt"+
-  //              "\n stock : "+produit.getQuantiteStock()+"\n Description : "+produit.getDescription()+"\n ");
+        TrayNotification tray = new TrayNotification("succées d'ajout", "CHECK YOUR USERNAME OR PASSWORD",NotificationType.SUCCESS);
+        tray.showAndDismiss(Duration.seconds(2));
 
-        new SendMail().envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + produit.getLibelle(),
-                       "l'ajout du "+produit.getLibelle());
-        //kamel rigel lmail
+
+
+
+//kamel rigel lmail
+//        new SendMail().envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + produit.getLibelle(),
+//                       "l'ajout du "+produit.getLibelle());
+        //send sms
+//        SmsSender smsSender = new SmsSender("votre produit "+produit.getLibelle() +"\n prix :"+txtprixProduit.getText() +" dt"+
+//                "\n stock : "+produit.getQuantiteStock()+"\n Description : "+produit.getDescription()+"\n ");
         return true;
 
-        //  homeController.tableUpdate();
     }
 
     @FXML
     private void firstPhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg")
         );
         file1 = fileChooser.showOpenDialog(stage);
 
@@ -182,7 +232,10 @@ public class AddProductController implements Initializable {
         initialize();
         btnAjouter.setOnAction(e -> {
 
-            AjouterButtonAction(file1, file2, file3);
+            if (AjouterButtonAction(file1, file2, file3)) {
+                 
+            }
+
 
             stage = (Stage) btnAjouter.getScene().getWindow();
 
