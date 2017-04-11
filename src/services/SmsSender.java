@@ -15,7 +15,7 @@ private SmsTransceiver transceiver = null;
 private Object link = null; // Just to keep this object alive. 
 private int counter = 0; 
 
-public SmsSender() 
+public SmsSender(String Message) 
 { 
 this.link = this; // Keeps this object alive. 
 this.transceiver = SmsTransceiver.getInstance(); // Get the transceiver object. 
@@ -23,8 +23,8 @@ this.transceiver = SmsTransceiver.getInstance(); // Get the transceiver object.
 // Initialize transceiver. 
 String smsHost = "cpa.vianett.no"; 
 String smsPort = "31337"; 
-String smsUsername = "mustapha.jamel@gmail.com "; 
-String smsPassword = "6w24h"; 
+String smsUsername = "jbal.zaghouen@gmail.com "; 
+String smsPassword = "otfno"; 
 this.transceiver.initialize( smsHost, Integer.parseInt( smsPort ), smsUsername, smsPassword, new SmsScreenLogger() ); 
 
 this.transceiver.addSmsEventListener( this ); // Registrer this class as listener for SMS events. 
@@ -34,14 +34,14 @@ Sms sms = new Sms();
 sms.setId( ++this.counter ); 
 sms.setReplyPath( 100 ); 
 sms.setSender( "1963" ); // Set the sender number. 
-sms.setMessage( "Hello World!" ); 
+sms.setMessage( Message ); 
 sms.setRecipient( "21624979033" ); // The recipients phone number. 
 
 this.transceiver.send( sms ); 
 } 
 
 // Just make new instance of this class. 
-public static void main( String[] args ){ new SmsSender(); } 
+public static void main( String[] args ){  } 
 
 /**
     * Listener.

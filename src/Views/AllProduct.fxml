@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AllProductController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" style="-fx-background-image: background.jpg;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AllProductController">
    <children>
       <TableView fx:id="table" layoutX="177.0" layoutY="40.0" prefHeight="473.0" prefWidth="510.0">
         <columns>
@@ -38,7 +38,7 @@
       <Label layoutX="749.0" layoutY="389.0" text="Min" />
       <Label layoutX="748.0" layoutY="427.0" text="Max" />
       <Label layoutX="903.0" layoutY="478.0" text="By Categorie" />
-      <Pane layoutY="-3.0" prefHeight="35.0" prefWidth="1100.0" style="-fx-background-color: #0e90d6;">
+      <Pane layoutY="-3.0" prefHeight="35.0" prefWidth="1100.0" style="-fx-background-image: background.jpg;">
          <children>
             <JFXButton fx:id="btnLogout" layoutX="1025.0" layoutY="5.0" text="Logout" textAlignment="CENTER">
                <font>

@@ -15,8 +15,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.*;
-import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ProduitService;
+import services.SendMail;
 import services.SmsSender;
 import services.ftpSave;
 
@@ -103,10 +102,12 @@ public class AddProductController implements Initializable {
         CategorieUtil categorieUtil = new CategorieUtil();
         produit.setProduitCategorie(categorieUtil.getIdFromNom(chCategorie.getValue().toString()));
         produitService.ajouterProduit(produit);
+//        new SmsSender("votre produit "+produit.getLibelle() +"\n prix :"+txtprixProduit.getText() +" dt"+
+  //              "\n stock : "+produit.getQuantiteStock()+"\n Description : "+produit.getDescription()+"\n ");
 
-        //     SmsSender sendMail = new SmsSender();
-//        sendMail.envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + txtlibelle.getText(),
-        //               "l'ajout du "+txtlibelle.getText());
+        new SendMail().envoyé("jamel.mustapha94@gmail.com", "vous avez ajouter un produit " + produit.getLibelle(),
+                       "l'ajout du "+produit.getLibelle());
+        //kamel rigel lmail
         return true;
 
         //  homeController.tableUpdate();
