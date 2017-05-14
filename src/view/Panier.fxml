@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Style/x.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PanierController">
+   <children>
+      <TableView fx:id="table_panier" prefHeight="231.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="75.0" text="Id" visible="false" />
+          <TableColumn fx:id="nom_p" prefWidth="158.0" text="Nom Produit" />
+            <TableColumn fx:id="qte_p" minWidth="7.0" prefWidth="122.0" text="Quantitée" />
+            <TableColumn fx:id="pu_p" prefWidth="142.0" text="Prix Unitaire" />
+            <TableColumn fx:id="put_p" prefWidth="177.0" text="Prix Unitaire Totale " />
+        </columns>
+      </TableView>
+      <Label fx:id="prodid" layoutX="39.0" layoutY="240.0" text="Label" visible="false" />
+      <JFXTextField fx:id="qte" alignment="TOP_CENTER" layoutX="140.0" layoutY="309.0" onKeyTyped="#testdigit" prefHeight="25.0" prefWidth="38.0" visible="false">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></JFXTextField>
+      <ImageView fx:id="img" fitHeight="85.0" fitWidth="215.0" layoutX="312.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton fx:id="BtnMod" layoutX="104.0" layoutY="350.0" onAction="#ModifQuan" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Modifier Quantite" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font></JFXButton>
+      <Label fx:id="prix" layoutX="25.0" layoutY="200.0" visible="false" />
+      <Label fx:id="photo" disable="true" layoutX="268.0" layoutY="292.0" visible="false" />
+      <JFXButton fx:id="pc" layoutX="39.0" layoutY="245.0" onAction="#PasserCommandeAction" prefHeight="31.0" prefWidth="150.0" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Passer La Commande" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="lps" layoutX="245.0" layoutY="245.0" onAction="#ReturnAction" prefHeight="10.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Liste Produits" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="ep" layoutX="412.0" layoutY="245.0" onAction="#SuppProd" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Effacer le Produit" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></JFXButton>
+   </children>
+</AnchorPane>

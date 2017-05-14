@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.ModelListeController">
+   <children>
+      <ImageView fx:id="img" fitHeight="166.0" fitWidth="214.0" layoutX="3.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="9.0" AnchorPane.topAnchor="5.0">
+         <viewport>
+            
+         </viewport>
+      </ImageView>
+  
+  
+      <Label fx:id="titre" layoutX="314.0" layoutY="39.0" prefHeight="25.0" prefWidth="347.0" text=";,  jvkvnk">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Label>
+ <Label fx:id="prix" layoutX="314.0" layoutY="95.0" prefHeight="25.0" prefWidth="276.0" text=";,  jvkvnk">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="ajouter" buttonType="RAISED" layoutX="597.0" layoutY="120.0" prefHeight="42.0" prefWidth="149.0" style="-fx-background-color: #B1F1B2;" text="ajouter panier" />
+   </children>
+    </AnchorPane>

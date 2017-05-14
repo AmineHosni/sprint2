@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="355.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ShippingOrderController">
+   <children>
+      <Label layoutX="14.0" layoutY="70.0" prefHeight="18.0" prefWidth="309.0" text="Utiliser l'adresse de livraison par défaut : " textFill="#a2ee99">
+         <font>
+            <Font name="Bookman Old Style" size="15.0" />
+         </font></Label>
+      <JFXTextArea fx:id="adr" focusColor="#68f28f" layoutX="143.0" layoutY="231.0" prefHeight="78.0" prefWidth="243.0" unFocusColor="#bfb9b9" />
+      <JFXTextField fx:id="tel" focusColor="#68f28f" layoutX="420.0" layoutY="171.0" unFocusColor="#bfb9b9" />
+      <JFXTextField fx:id="codepo" focusColor="#68f28f" layoutX="420.0" layoutY="108.0" unFocusColor="#bfb9b9" />
+      <JFXTextField fx:id="gouv" focusColor="#68f28f" layoutX="129.0" layoutY="108.0" unFocusColor="#bfb9b9" />
+      <JFXTextField fx:id="dele" focusColor="#68f28f" layoutX="129.0" layoutY="171.0" unFocusColor="#bfb9b9" />
+      <Label layoutX="68.0" layoutY="231.0" text="Adresse : " />
+      <Label layoutX="27.0" layoutY="120.0" text="Gouvernorat : " />
+      <Label layoutX="25.0" layoutY="183.0" text="Délégation : " />
+      <Label layoutX="326.0" layoutY="120.0" text="Code Postale : " />
+      <Label layoutX="326.0" layoutY="183.0" text="Télephone : " />
+      <JFXButton layoutX="462.0" layoutY="302.0" onAction="#EtapeDeux" prefHeight="25.0" prefWidth="105.0" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Suivant" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font></JFXButton>
+      <JFXCheckBox fx:id="info" layoutX="333.0" layoutY="70.0" onAction="#ViderChamps" selected="true" />
+      <ImageView fitHeight="66.0" fitWidth="600.0">
+         <image>
+            <Image url="@../Images/adresse.PNG" />
+         </image>
+      </ImageView>
+      <Label fx:id="idcomf" disable="true" layoutX="45.0" layoutY="231.0" text="Label" visible="false" />
+      
+   </children>
+</AnchorPane>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="600.0" style="-fx-background-image: ..\Images\main_background.png;" stylesheets="@../Style/x.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ListeProduitsController">
+     
+    <center>
+       
+      <TableView fx:id="tableproduit" prefHeight="268.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="cid" prefWidth="100.0" text="id" visible="false" />
+          <TableColumn fx:id="cnom" prefWidth="209.0" text="Nom Produit" />
+            <TableColumn fx:id="cprix" prefWidth="175.0" text="Prix" />
+            <TableColumn fx:id="cqte" prefWidth="215.0" text="Quantite" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="label" disable="true" text="Label" visible="false">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <Label fx:id="qnt" disable="true" text="Label" visible="false">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <Label fx:id="prixu" disable="true" text="Label" visible="false">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="mycart" onAction="#MyCartAction" prefHeight="37.0" prefWidth="156.0" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Mon Panier" textFill="WHITE">
+               <font>
+                  <Font name="Calibri" size="17.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="cid_prod" disable="true" text="Label" visible="false">
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="slt" onAction="#sltButtonAction" prefHeight="35.0" prefWidth="166.0" ripplerFill="WHITE" style="-fx-background-color: #66de97;" text="Ajouter Au Panier" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

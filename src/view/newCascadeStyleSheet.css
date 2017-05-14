@@ -1,0 +1,56 @@
+/*******************************************************************************
+ *                                                                             *
+ * TableView                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.table-cell {
+    -fx-padding: 0.8em 0em 0.5em 0.3em;
+    -fx-cell-size: 500px;
+    -fx-font-weight: 700;
+    
+}
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-box-border: transparent;
+    -fx-table-cell-border-width: 12;
+    -fx-focus-color: transparent;
+    -fx-background-color: #f2f2f2;
+}
+.table-row-cell:selected .text {
+    -fx-fill: #fff;
+}
+.table-row-cell:selected {
+    -fx-background-color: #5DA5DA;
+    -fx-table-cell-border-color: #5DA5DA;
+}
+
+
+.table-view:focused .table-row-cell:focused,.table-view:focused .table-row-cell:focused:odd {
+    -fx-background-color: -fx-box-border, white;
+    -fx-background-insets: 0, 1, 2;
+}
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #90D26D;
+}
+.table-view:focused .table-row-cell:filled:selected, .table-view:row-selection .table-row-cell:filled:hover:selected {
+    -fx-background-color: #90D26D;
+}
+.table-view:focused .table-row-cell:filled:focused:selected:hover {
+    -fx-background-color: #90D26D;
+}
+.table-row-cell:filled:selected:focused, .table-row-cell:filled:selected {
+    -fx-background-color: #90D26D;
+}
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: #90D26D;
+}
+.table-view:row-selection .table-row-cell:filled:focused:hover {
+    -fx-background-color: #90D26D;
+}
+.table-view:focused .table-row-cell:filled:focused:hover {
+    -fx-background-color: #90D26D;
+}
+.table-row-cell {
+    -fx-cell-size: 60;
+}

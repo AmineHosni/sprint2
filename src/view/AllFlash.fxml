@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="635.0" prefWidth="1151.0" style="-fx-background-color: #F2F9F1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllFlashController">
+     
+     <JFXListView fx:id="liste" focusTraversable="false" layoutX="14.0" layoutY="103.0" prefHeight="404.0" prefWidth="1125.0">
+               
+            </JFXListView>
+   <ImageView fx:id="pic" fitHeight="62.0" fitWidth="170.0" layoutX="21.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+   <Label layoutX="268.0" layoutY="55.0" prefHeight="23.0" prefWidth="288.0" text="les ventes flashs actives ">
+      <font>
+         <Font name="Britannic Bold" size="22.0" />
+      </font>
+   </Label>
+   <JFXButton fx:id="retour" layoutX="997.0" layoutY="525.0" onAction="#retour" prefHeight="50.0" prefWidth="140.0" style="-fx-background-color: #44C662;" text="retour">
+      <font>
+         <Font size="23.0" />
+      </font>
+   </JFXButton>
+   
+</AnchorPane>

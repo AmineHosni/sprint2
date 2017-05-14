@@ -6,7 +6,7 @@
 package dao;
 
 import entities.Coupon;
-import Utils.DatabaseConnection;
+import util.DatabaseConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

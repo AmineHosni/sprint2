@@ -21,13 +21,14 @@ public class ProduitUtil extends UtilInterface {
     public ProduitUtil() {
         initConnection();
     }
-
+    @Override
     public boolean ajouterObject(Object p) {
         Produit produit = (Produit) p;
 
         String INSERT_PRODUIT = "insert into produit(libelle, description, "
                 + "image_name,marque,etat,prixProduit,"
-                + "quantiteStock,created_date,duree,produitCategorie,image_name2,image_name3,seller) values (?,?,?,?,?, ?, ?,?,?,?,?,?"
+                + "quantiteStock,created_date,duree,produitCategorie,"
+                + "image_name2,image_name3,seller) values (?,?,?,?,?, ?, ?,?,?,?,?,?"
                 + ",?)";
 
         PreparedStatement ps;
@@ -43,9 +44,16 @@ public class ProduitUtil extends UtilInterface {
             ps.setDate(8, java.sql.Date.valueOf(java.time.LocalDate.now()));
             ps.setInt(9, produit.getDuree());
             ps.setInt(10, produit.getProduitCategorie());
-            ps.setString(11, produit.getImageName2());
-            ps.setString(12, produit.getImageName3());
+            if (produit.getImageName2()!=null) {
+                            ps.setString(11, produit.getImageName2());
+
+            }else ps.setString(11,null);
+            if (produit.getImageName3()!=null) {
+                ps.setString(12, produit.getImageName3());
+            }else ps.setString(12, null);
+            
             ps.setInt(13, 9);
+            System.out.println(ps);
             ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -101,11 +109,13 @@ public class ProduitUtil extends UtilInterface {
         Produit p = new Produit();
         String req3 = "select * from produit ";
         ObservableList<Produit> products = FXCollections.observableArrayList();
-
+        
         try {
 
             ResultSet res = statement.executeQuery(req3);
             while (res.next()) {
+                
+                
                 Produit produit = new Produit();
 
                 produit.setId(res.getInt("id"));
@@ -120,21 +130,26 @@ public class ProduitUtil extends UtilInterface {
                 produit.setApprouver(res.getString("approuver"));
                 produit.setSeller(res.getInt("seller"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
-
-                products.add(produit);
-
+                if (produit.getCreatedDate().getDate()+produit.getDuree()>java.sql.Date.valueOf(java.time.LocalDate.now()).getDate()) {
+                    
+                    products.add(produit);
+                }
+                
+         
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         return products;
     }
 
     public String returnImage(int i, String imageUrl) {
         String image = null;
         try {
-            String req3 = "select `" + imageUrl + "` from produit where `id`= " + i;
-            ResultSet res = statement.executeQuery(req3);
+            String getImage = "select `" + imageUrl + "` from produit where `id`= " + i;
+            ResultSet res = statement.executeQuery(getImage);
             while (res.next()) {
                 image = res.getString(imageUrl);
 
@@ -162,7 +177,6 @@ public class ProduitUtil extends UtilInterface {
             produit.setDuree(res.getInt("duree"));
             produit.setApprouver(res.getString("approuver"));
             produit.setSeller(res.getInt("seller"));
-
             produit.setUpdatedAt(res.getDate("updated_at"));
 
         } catch (SQLException ex) {

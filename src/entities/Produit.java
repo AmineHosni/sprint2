@@ -23,7 +23,6 @@ public class Produit  {
     private String etat;
     private Double prixProduit;
     private Integer quantiteStock;
-    private Integer pourcentagePromotion;
     private Date createdDate;
     private Integer duree;
     private String approuver;
@@ -32,7 +31,32 @@ public class Produit  {
     private Date updatedAt;
     private Integer produitCategorie;
     private String image_url;
+       private VenteFlash flash;
+          private Double prixflash;
     public Produit() {
+    }
+
+    public Produit(int id, Double prix, int qte, String nomproduit) {
+        this.id=id;
+        this.prixProduit=prix;
+        this.quantiteStock= qte;
+        this.libelle=nomproduit;
+    }
+
+    public VenteFlash getFlash() {
+        return flash;
+    }
+
+    public void setFlash(VenteFlash flash) {
+        this.flash = flash;
+    }
+
+    public Double getPrixflash() {
+        return prixflash;
+    }
+
+    public void setPrixflash(Double prixflash) {
+        this.prixflash = prixflash;
     }
 
 
@@ -42,8 +66,8 @@ public class Produit  {
     }
 
     public Produit(Integer id, String libelle, String description,
-            String marque, String etat, Double prixProduit, Integer quantiteStock,
-            Integer pourcentagePromotion, Date createdDate, Integer duree, String approuver,
+            String marque, String etat, Double prixProduit, Integer quantiteStock
+            , Date createdDate, Integer duree, String approuver,
             Integer seller, String imageName, Date updatedAt, Integer produitCategorie) {
         this.id = id;
         this.libelle = libelle;
@@ -52,7 +76,6 @@ public class Produit  {
         this.etat = etat;
         this.prixProduit = prixProduit;
         this.quantiteStock = quantiteStock;
-        this.pourcentagePromotion = pourcentagePromotion;
         this.createdDate = createdDate;
         this.duree = duree;
         this.approuver = approuver;
@@ -61,7 +84,22 @@ public class Produit  {
         this.updatedAt = updatedAt;
         this.produitCategorie = produitCategorie;
     }
+   
+   public Produit(Integer id, String libelle,Double  prixProduit) {
+        this.id = id;
+        this.libelle = libelle;
+      
+        this.prixProduit = prixProduit;
+        
+    }
+     public Produit(Integer id, Double prixFlash,String libelle) {
+        this.id = id;
+        this.prixflash = prixFlash;
+        this.libelle = libelle;
+              
 
+        
+    }
    
 
     public Integer getId() {
@@ -104,13 +142,7 @@ public class Produit  {
         this.etat = etat;
     }
 
-    public Integer getPourcentagePromotion() {
-        return pourcentagePromotion;
-    }
-
-    public void setPourcentagePromotion(Integer pourcentagePromotion) {
-        this.pourcentagePromotion = pourcentagePromotion;
-    }
+   
 
     public Double getPrixProduit() {
         return prixProduit;
