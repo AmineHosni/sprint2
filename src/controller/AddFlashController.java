@@ -17,36 +17,24 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.sql.Connection;
-import javafx.application.Platform;
 import java.net.URL;
-import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.management.Notification;
 import jfxtras.scene.control.LocalDateTimeTextField;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -148,7 +136,6 @@ public class AddFlashController {
         }
         
         Connection con = DatabaseConnection.getInstance().getConnection();
-        System.out.println(con);
         String name = this.nom.getText();
 
         String desc = this.description.getText();
@@ -221,8 +208,7 @@ public class AddFlashController {
                            Date start = Date.from(d1.atZone(ZoneId.systemDefault()).toInstant());
                              Date finish = Date.from(d2.atZone(ZoneId.systemDefault()).toInstant());
 
-                          System.out.println(start);
-                          System.out.println(finish);
+                        
      
           
         VenteFlashService venteflashservice;

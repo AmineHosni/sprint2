@@ -118,13 +118,11 @@ public class FlashDataController implements Initializable {
 
          liste.getItems().clear();
        
-        System.out.println(vente.getId());
         for (Produit prod : new VenteFlashService().taken(vente.getId())){
             try {
                 ModelListeController c = new ModelListeController();
                 c.p=prod;
-                System.out.println(prod.getId());
-                System.out.println(prod.getImageName());
+             
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ModelListe.fxml"));
                 Parent model = (Parent)fxmlLoader.load();
                 

@@ -6,6 +6,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.restfb.types.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import java.util.logging.Logger;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import view.AllProduct;
-import entities.User;
+import entities.Utilisateur;
 /**
  * FXML Controller class
  *
@@ -28,6 +29,7 @@ public class UserConnectionController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    public static Utilisateur user = new Utilisateur();
     @FXML
     JFXButton btnconnecter, btnExit;
     @FXML
@@ -35,19 +37,15 @@ public class UserConnectionController implements Initializable {
     @FXML
     Label lblWarning;
     Stage stage = new Stage();
-    Integer connect;
-    public static User user = new User();
     @FXML
     public void connecter() {
         UtilisateurUtil utilisateurUtil = new UtilisateurUtil();
-         connect = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
-        if (connect!=null) {
+         user = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
+        if (user!=null) {
             try {
                 
+                
                 Stage s = (Stage) btnconnecter.getScene().getWindow();
-                lblWarning.setText("Verifiez vous données");
-                user.setId_user(10);
-                user.setNom_user(txtUsername.getText());
                 AllProduct allProduct = new AllProduct();
                 allProduct.start(stage);
                 s.close();

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entities.Utilisateur;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,9 +23,9 @@ public class UtilisateurUtil extends UtilInterface{
     
     
     
-     public Integer VerifUsername(String name,String password) {
-        String req3="select *  from utilisateur";
-        Integer idUser = null;
+     public Utilisateur VerifUsername(String name,String password) {
+        Utilisateur user = new Utilisateur();
+         String req3="select *  from utilisateur";
         //,`salt`
     try {
         ResultSet  res =  statement.executeQuery(req3);
@@ -34,7 +35,8 @@ public class UtilisateurUtil extends UtilInterface{
                
                if ((name.equals(res.getString("username")))&&(password.equals(res.getString("password")))) {
                   
-                   idUser= res.getInt("id");
+                   user.setNom(res.getString("username"));
+                   user.setId(res.getInt("id"));
                }
                
                
@@ -43,7 +45,7 @@ public class UtilisateurUtil extends UtilInterface{
         } catch (SQLException ex) {
             Logger.getLogger(ProduitUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    return idUser;
+    return user;
     
     }
     @Override

@@ -167,7 +167,6 @@ public class FlashListController implements Initializable {
         stage.setTitle("My modal window");
         stage.initModality(Modality.APPLICATION_MODAL);
        
-        System.out.println(AddFlash.getScene());
         stage.initOwner(AddFlash.getScene().getWindow());
         stage.showAndWait();}
         

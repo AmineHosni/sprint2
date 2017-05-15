@@ -28,7 +28,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import services.ProduitService;
-import services.SendMail;
 
 import services.ftpSave;
 import tray.notification.NotificationType;

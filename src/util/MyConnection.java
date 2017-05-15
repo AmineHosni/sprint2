@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class MyConnection {
 
-    private static String databaseURL = "jdbc:mysql://localhost:3306/pidev3";
+    private static String databaseURL = "jdbc:mysql://localhost:3306/pidevbugfree";
     private static String user = "root";
     private static String password = "";
     private static String driverName = "com.mysql.jdbc.Driver";

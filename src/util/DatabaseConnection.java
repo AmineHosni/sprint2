@@ -23,7 +23,7 @@ public class DatabaseConnection {
     
     
   static Connection myconnection;
-  static String url = "jdbc:mysql://localhost:3306/pidev3";
+  static String url = "jdbc:mysql://localhost:3306/pidevbugfree";
   static String login = "root";
   static String pwd = "";
   static DatabaseConnection instance;

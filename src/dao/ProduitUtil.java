@@ -128,7 +128,7 @@ public class ProduitUtil extends UtilInterface {
                 produit.setCreatedDate(res.getDate("created_date"));
                 produit.setDuree(res.getInt("duree"));
                 produit.setApprouver(res.getString("approuver"));
-                produit.setSeller(res.getInt("seller"));
+                produit.setSeller(res.getInt("seller_id"));
                 produit.setUpdatedAt(res.getDate("updated_at"));
                 if (produit.getCreatedDate().getDate()+produit.getDuree()>java.sql.Date.valueOf(java.time.LocalDate.now()).getDate()) {
                     
@@ -383,7 +383,7 @@ public class ProduitUtil extends UtilInterface {
 
     public ObservableList<Produit> afficher(Integer IdUser) {
         Produit p = new Produit();
-        String req3 = "select * from produit WHERE `seller`=" + IdUser;
+        String req3 = "select * from produit WHERE `seller_id`=" + IdUser;
         System.out.println(req3);
         ObservableList<Produit> products = FXCollections.observableArrayList();
 

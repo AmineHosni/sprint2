@@ -131,7 +131,6 @@ public class GestionFlashController implements Initializable {
     private JFXButton setprice;
     public void change() throws MalformedURLException{
                Produit p=disponibles.getSelectionModel().getSelectedItem();
-        System.out.println(p.getImageName());
      File file = new File("C:\\Users\\Public\\Pictures\\"+p.getImageName());
         String pic;               
     
@@ -141,7 +140,6 @@ public class GestionFlashController implements Initializable {
               image.setImage(im);}
      public void change1() throws MalformedURLException{  
          Produit p=taken.getSelectionModel().getSelectedItem();
-        System.out.println(p.getImageName());
 
      File file = new File("C:\\Users\\Public\\Pictures\\"+p.getImageName());
         String pic;               
@@ -236,7 +234,6 @@ public class GestionFlashController implements Initializable {
         disponibles.setItems(free);
         free.size();
                 engaged = venteflashservice.taken(idd);
-                        System.out.println(engaged.size());
 
 		nom1.setCellValueFactory(new PropertyValueFactory<>("libelle"));
 		prix1.setCellValueFactory(new PropertyValueFactory<>("prixflash"));
