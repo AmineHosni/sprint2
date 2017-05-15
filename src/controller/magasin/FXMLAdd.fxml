@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import com.lynden.gmapsfx.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="601.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.FXMLAddController">
+   <children>
+      <GoogleMapView fx:id="mapView" layoutY="325.0" prefHeight="228.0" prefWidth="451.0" />
+      <JFXTextField fx:id="adresse" alignment="CENTER" layoutY="28.0" prefHeight="25.0" prefWidth="444.0" promptText="Address" />
+      <JFXTextField fx:id="name" alignment="CENTER" layoutY="82.0" prefHeight="25.0" prefWidth="445.0" promptText="Name" />
+      <JFXTextField fx:id="owner" alignment="CENTER" layoutY="142.0" prefHeight="25.0" prefWidth="447.0" promptText="Owner" />
+      <JFXTextField fx:id="description" alignment="CENTER" layoutY="205.0" prefHeight="52.0" prefWidth="451.0" promptText="Description" />
+      <JFXButton fx:id="addPhoto" layoutX="190.0" layoutY="277.0" onAction="#PhotoButtonAction" text="Add Logo" />
+      <JFXButton fx:id="addMagasin" layoutX="180.0" layoutY="562.0" onAction="#AddMagasinAction" text="Add Magasin" />
+      <Label fx:id="imageName" layoutX="360.0" layoutY="281.0" text="Image Name" />
+   </children>
+</AnchorPane>

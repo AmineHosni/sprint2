@@ -86,6 +86,7 @@ public class AllProductController implements Initializable {
     CategorieUtil categorieUtil = new CategorieUtil();
     Integer i = 1;
 
+
     @FXML
     public void NextPhoto() {
 
@@ -109,7 +110,9 @@ public class AllProductController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        lblUser.setText("Jamel Mustapha");
+
+        lblUser.setText( UserConnectionController.user.getNom_user());
+
 
         lblMaxPrix.setText(String.valueOf(produitservice.maxPrice()));
         lblMinPrix.setText(String.valueOf(produitservice.maxPrice()));
@@ -161,12 +164,14 @@ public class AllProductController implements Initializable {
             Stage stage = (Stage) btnLogout.getScene().getWindow();
             stage.close();
             new UserConnection().start(stage);
+
         });
         btnStatistique.setOnAction(e->{
             
             Stage stage = new Stage();
               new PieChartSample().inserData(stage, produitservice.Nouveau(), produitservice.Occasion());
         });
+
     }
 
 }

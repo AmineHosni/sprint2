@@ -20,6 +20,9 @@ public class User {
         this.adr_user = adr_user;
     }
 
+    public User() {
+    }
+
     public int getId_user() {
         return id_user;
     }

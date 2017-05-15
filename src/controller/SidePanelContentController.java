@@ -47,6 +47,7 @@ public class SidePanelContentController implements Initializable {
 
         scene.setRoot(parent);
     }
+    
     @FXML
     public void AllFlash(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
@@ -57,16 +58,8 @@ public class SidePanelContentController implements Initializable {
         Parent parent = loader.getRoot();
         scene.setRoot(parent);
     }
-    @FXML
-    public void AddFlash() throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/view/addFlash.fxml"));
-        stage.setScene(new Scene(root));
-        stage.setTitle("My modal window");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(this.allFlash.getScene().getWindow());
-      stage.show();    }
-
+    
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btnTousLesProduit.setOnMouseClicked(e -> {
@@ -92,6 +85,32 @@ public class SidePanelContentController implements Initializable {
             }
 
         });
-    }
-
+     addFlash.setOnAction(e->{
+            try {
+              
+               Node node = (Node) e.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                Scene scene = stage.getScene();
+                FXMLLoader loader = new FXMLLoader();
+                loader.load(getClass().getResource("/view/addFlash.fxml").openStream());
+                Parent parent = loader.getRoot();
+                scene.setRoot(parent);
+            } catch (IOException ex) {
+                Logger.getLogger(SidePanelContentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     });
+     allFlash.setOnAction(e->{
+            try {
+                Node node = (Node) e.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                Scene scene = stage.getScene();
+                FXMLLoader loader = new FXMLLoader();
+                loader.load(getClass().getResource("/view/AllFlash.fxml").openStream());
+                Parent parent = loader.getRoot();
+                scene.setRoot(parent);
+            } catch (IOException ex) {
+                Logger.getLogger(SidePanelContentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     });
+}
 }

@@ -14,8 +14,6 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 
@@ -34,7 +32,6 @@ public class DatabaseConnection {
          try {
        myconnection = DriverManager.getConnection(url,
                    login, pwd);
-           System.out.println("connexion etablie");
        } catch (SQLException ex) {
            System.out.println(ex.getMessage());
        }
