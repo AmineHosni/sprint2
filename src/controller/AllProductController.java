@@ -152,6 +152,7 @@ public class AllProductController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("el id "+UserConnectionController.user.getId());
         mycart.setText("Mon Panier (" + String.valueOf(GetUserCartCount()) + ")");
 
         lblUser.setText(UserConnectionController.user.getNom());

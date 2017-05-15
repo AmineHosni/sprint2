@@ -99,7 +99,7 @@ public class ConfirmerController implements Initializable,Livraison {
                 comtot = rs.getInt("commande_tot");
              
             }
-                     String sql = ("INSERT INTO `livraison` (`id_user`, `prixtotal`, `adresse _liv`, `telephone_user`, `codepostale_user`, "
+                     String sql = ("INSERT INTO `livraison` (`id_user`, `prixtotal`, `adresse_liv`, `telephone_user`, `codepostale_user`, "
                     + "`delegation_user`, `gouvernorat_user`, `paiement`, `etat_paie`, `meth_livraison`, `id_commande`)"
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
                    

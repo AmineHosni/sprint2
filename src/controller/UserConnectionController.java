@@ -41,7 +41,7 @@ public class UserConnectionController implements Initializable {
     public void connecter() {
         UtilisateurUtil utilisateurUtil = new UtilisateurUtil();
          user = utilisateurUtil.VerifUsername(txtUsername.getText(), txtPassword.getText());
-        if (user!=null) {
+        if (user.getNom()!=null) {
             try {
                 
                 
